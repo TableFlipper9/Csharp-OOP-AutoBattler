@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyx8o2yxtjxl4"]
+
+[ext_resource type="Script" path="res://Main.cs" id="1_85ja0"]
+[ext_resource type="PackedScene" uid="uid://cmabg7lyiid5s" path="res://field.tscn" id="2_pnneb"]
+
+[node name="Control" type="Node2D"]
+script = ExtResource("1_85ja0")
+
+[node name="HeroFrontField" parent="." instance=ExtResource("2_pnneb")]
+position = Vector2(199, 291)
+
+[node name="EnemyFrontField" parent="." instance=ExtResource("2_pnneb")]
+position = Vector2(839, 294)
