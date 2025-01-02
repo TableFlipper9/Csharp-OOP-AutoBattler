@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://x8f5nwgf1ibp"]
+
+[ext_resource type="Texture2D" uid="uid://b4utcxiesg16a" path="res://GUI/GUI.png" id="1_0jns7"]
+[ext_resource type="Script" path="res://UnitFieldControl.cs" id="1_jfsf7"]
+[ext_resource type="PackedScene" uid="uid://c15pale320c0b" path="res://UnitGridControl.tscn" id="3_fulle"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfjdq"]
+atlas = ExtResource("1_0jns7")
+region = Rect2(0, 0, 192, 304)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -786.0
+offset_bottom = -472.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jfsf7")
+
+[node name="OpenedTab" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 364.0
+offset_bottom = 176.0
+texture = SubResource("AtlasTexture_qfjdq")
+region_rect = Rect2(111.995, 256.015, 80.0204, 48.089)
+
+[node name="Back" parent="OpenedTab" instance=ExtResource("3_fulle")]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 15.0
+offset_right = 180.0
+offset_bottom = 160.0
+
+[node name="Front" parent="OpenedTab" instance=ExtResource("3_fulle")]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 15.0
+offset_right = 340.0
+offset_bottom = 160.0
+
+[node name="ClosedTab" type="NinePatchRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+offset_right = 364.0
+offset_bottom = 22.0
+texture = SubResource("AtlasTexture_qfjdq")
+region_rect = Rect2(111.995, 256.015, 80.0204, 6.03076)
+
+[node name="Close" type="Button" parent="."]
+layout_mode = 0
+offset_right = 367.0
+offset_bottom = 22.0
+toggle_mode = true
+flat = true
+
+[connection signal="toggled" from="Close" to="." method="OnCloseToggle"]

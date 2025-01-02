@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxohdcs5yweaw"]
+
+[ext_resource type="Script" path="res://AreaAttack.cs" id="1_dogsr"]
+[ext_resource type="SpriteFrames" uid="uid://bddageo3wan6b" path="res://Animations/Effects/Archer.tres" id="2_64jhw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_43p18"]
+
+[node name="AreaOfEffect" type="Area2D"]
+script = ExtResource("1_dogsr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_43p18")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_64jhw")
+animation = &"Effects"
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="OnBodyExited"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimationFinished"]

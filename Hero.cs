@@ -1,55 +1,135 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 public partial class Hero : Unit
 {
-	public enum TYPE
+	public Global.HeroTypes type;
+
+	public struct chargeRates
 	{
-		HORSE,
-		KNIGHT,
-		ARCHER,
-		HEALER
+		public int basicCharge;
+		public int specialCharge;
+		public int ultimateCharge;
+	}
+	public chargeRates chargeRate;
+	public struct damages
+	{
+		public int basicDamage;
+		public int specialDamage;
+		public int ultimateDamage;
+	}
+	public damages damage;
+	public enum attackTypes
+	{
+		basic,
+		special,
+		ultimate
+	}
+	public attackTypes attackType;
+
+	public Hero() : base() { }
+
+	public void LevelUp()
+	{
+		this.level = Global.heroLevels[(int)type];
+		this.maxHealth = Global.heroMaxHealth[Global.heroStringMap[type]][level];
+		this.damage.basicDamage = Global.heroDamage[Global.heroStringMap[type]][level][0];
+		this.damage.specialDamage = Global.heroDamage[Global.heroStringMap[type]][level][1];
+		this.damage.ultimateDamage = Global.heroDamage[Global.heroStringMap[type]][level][2];
+		this.chargeRate.basicCharge = Global.heroChargeRate[Global.heroStringMap[type]][level][0];
+		this.chargeRate.specialCharge = Global.heroChargeRate[Global.heroStringMap[type]][level][1];
+		this.chargeRate.ultimateCharge = Global.heroChargeRate[Global.heroStringMap[type]][level][2];
+
+		this.health = (maxHealth * healthPercentage) / 100;
+		if (healthBar != null){
+			healthBar.ChangeMax(maxHealth, maxCharge);
+			healthBar.ChangeValue(health, charge);
+		}
 	}
 
-	public TYPE type;
-	public Vector2 locationInrow;
-
-	public Hero() : base(0,0,0){}
-
-	 public void Init(TYPE type) 
+	public void Init(Global.HeroTypes type, Vector2 locationInField)
 	{
+		this.level = Global.heroLevels[Global.heroStringMap[type]];
+		this.maxCharge = Global.heroMaxCharge[Global.heroStringMap[type]];
+		this.LevelUp();
+
 		isMoving = true;
-		locationInrow = new Vector2(200, 600);
+		locationInrow = locationInField; //new Vector2(200, 600);
 		this.type = type;
 	}
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		this.collision = GetNode<CollisionShape2D>("CollisionShape2D");
-		this.sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		this.attackTimer = GetNode<Timer>("Timer");
+		base._Ready();
 		/// add rest of get node
 		/// //this.sprite.Scale.X = 4;
-		switch (type)
-		{
-			case TYPE.KNIGHT:
-				//sprite.SpriteFrames.ResourcePath = "res://Animations/Hero.tres";
-				sprite.SpriteFrames = GD.Load<SpriteFrames>("res://Animations/Hero.tres");
-				this.range = 60;
-				break;
-			default:
-				break;
-		}
+
+		healthBar.ChangeMax(maxHealth, maxCharge);
+		healthBar.ChangeValue(health, charge);
+
 		attackTimer.Start();
 		moveHere(locationInrow);
 	}
-	
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+
+	public override void Attack()
 	{
-		if (isMoving == true && enemy != null){
-			moveToAttack(enemy.GlobalPosition);
+		base.Attack();
+		//GD.Print(enemy);
+		if (enemy != null ){
+			switch (attackType){
+				case (attackTypes.basic):
+					BasicAttack();
+					break;
+				case (attackTypes.special):
+					ChargeAttack();
+					break;
+				case (attackTypes.ultimate):
+					UltimateAttack();
+					break;
+				default:
+					break;
+			}
+			if (charge >= maxCharge)
+			{
+				attackType = attackTypes.special;
+			}
+			if(charge < maxCharge)
+			{
+				attackType = attackTypes.basic;
+			}
 		}
+		healthBar.ChangeValue(health, charge);
+	}
+	public void OnTimerTimeout()
+	{
+		if (isMoving == false && enemy != null)
+		{
+			switch (attackType)
+			{
+				case attackTypes.basic:
+					sprite.Play("BasicAttack");
+					break;
+				case attackTypes.special:
+					sprite.Play("SpecialAttack");
+					break;
+				case attackTypes.ultimate:
+					sprite.Play("UltimateAttack");
+					break;
+				default: break;
+			}
+		}
+	}
+
+	public virtual void BasicAttack()
+	{
+		GD.Print("OO");
+	}
+	public virtual void ChargeAttack()
+	{
+	}
+	public virtual void UltimateAttack()
+	{ 
 	}
 }

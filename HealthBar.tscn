@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://chk1rky4w8sbq"]
+
+[ext_resource type="Texture2D" uid="uid://bwejkmhtkxw1a" path="res://Sprites/All.png" id="1_07w3q"]
+[ext_resource type="Script" path="res://HealthBar.cs" id="1_p72hb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ct1rc"]
+atlas = ExtResource("1_07w3q")
+region = Rect2(709.999, 198.899, 4.01996, 33.3128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xn3wx"]
+atlas = ExtResource("1_07w3q")
+region = Rect2(629.98, 198.665, 4.03381, 33.2782)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16k6a"]
+atlas = ExtResource("1_07w3q")
+region = Rect2(709.984, 198.975, 4.0293, 33.0635)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whgid"]
+atlas = ExtResource("1_07w3q")
+region = Rect2(725.977, 198.972, 4.03784, 33.1022)
+
+[node name="HealthBar" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -9.0
+offset_right = -1124.0
+offset_bottom = -550.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p72hb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Health" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 100)
+layout_mode = 2
+value = 50.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = SubResource("AtlasTexture_ct1rc")
+texture_progress = SubResource("AtlasTexture_xn3wx")
+
+[node name="Charge" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 100)
+layout_mode = 2
+value = 50.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = SubResource("AtlasTexture_16k6a")
+texture_progress = SubResource("AtlasTexture_whgid")

@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx3b8inyo0ihh"]
+
+[ext_resource type="Texture2D" uid="uid://b4utcxiesg16a" path="res://GUI/GUI.png" id="1_103iw"]
+[ext_resource type="Script" path="res://UnitShopControl.cs" id="1_o5756"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vhygq"]
+atlas = ExtResource("1_103iw")
+region = Rect2(0, 96.0354, 48.1612, 32.1538)
+
+[node name="UnitShopControl" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 48.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o5756")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_right = 350.0
+offset_bottom = 180.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vhygq")
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(240, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 4

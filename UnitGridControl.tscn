@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://c15pale320c0b"]
+
+[ext_resource type="Texture2D" uid="uid://b4utcxiesg16a" path="res://GUI/GUI.png" id="1_2t0j3"]
+[ext_resource type="Script" path="res://UnitGridControl.cs" id="1_d70c2"]
+[ext_resource type="PackedScene" uid="uid://bvf0jj3r7py24" path="res://SelectedIcon.tscn" id="3_ffg26"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nx7x5"]
+atlas = ExtResource("1_2t0j3")
+region = Rect2(48.9682, 96.9493, 30.011, 30.05)
+
+[node name="GridControl" type="MarginContainer"]
+offset_left = 192.0
+offset_top = 25.0
+offset_right = 373.0
+offset_bottom = 180.0
+script = ExtResource("1_d70c2")
+
+[node name="Panel" type="TextureRect" parent="."]
+layout_mode = 2
+texture = SubResource("AtlasTexture_nx7x5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="GridContainer2" type="GridContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="GridContainer3" type="GridContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SelectedIcon" parent="." instance=ExtResource("3_ffg26")]
+visible = false
+layout_mode = 2

@@ -1,13 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://dyx8o2yxtjxl4"]
+[gd_scene load_steps=9 format=3 uid="uid://dyx8o2yxtjxl4"]
 
-[ext_resource type="Script" path="res://Main.cs" id="1_85ja0"]
-[ext_resource type="PackedScene" uid="uid://cmabg7lyiid5s" path="res://field.tscn" id="2_pnneb"]
+[ext_resource type="Script" path="res://Main.cs" id="1_xr4qs"]
+[ext_resource type="PackedScene" uid="uid://bw8eqjgx0nlks" path="res://Field.tscn" id="2_me20h"]
+[ext_resource type="PackedScene" uid="uid://dah5jkkp0q1mn" path="res://BackGround.tscn" id="3_c08lb"]
+[ext_resource type="Script" path="res://HeroUnitField.cs" id="4_3pr4y"]
+[ext_resource type="PackedScene" uid="uid://x8f5nwgf1ibp" path="res://UnitFieldControl.tscn" id="4_thu0b"]
+[ext_resource type="PackedScene" uid="uid://dluo8yr1ie576" path="res://GoldUI.tscn" id="5_6uqmi"]
+[ext_resource type="Script" path="res://EnemyUnitField.cs" id="5_hckfq"]
+[ext_resource type="PackedScene" uid="uid://cx3b8inyo0ihh" path="res://UnitShopControl.tscn" id="6_gatgb"]
 
 [node name="Control" type="Node2D"]
-script = ExtResource("1_85ja0")
+script = ExtResource("1_xr4qs")
 
-[node name="HeroFrontField" parent="." instance=ExtResource("2_pnneb")]
-position = Vector2(199, 291)
+[node name="UnitShopControl" parent="." instance=ExtResource("6_gatgb")]
+offset_left = 5.0
+offset_top = -2.0
+offset_right = 5.0
+offset_bottom = -2.0
 
-[node name="EnemyFrontField" parent="." instance=ExtResource("2_pnneb")]
-position = Vector2(839, 294)
+[node name="HeroFrontField" parent="." instance=ExtResource("2_me20h")]
+y_sort_enabled = true
+position = Vector2(-54, 313)
+scale = Vector2(0.8, 0.8)
+script = ExtResource("4_3pr4y")
+
+[node name="EnemyFrontField" parent="." instance=ExtResource("2_me20h")]
+y_sort_enabled = true
+position = Vector2(1209, 320)
+scale = Vector2(0.8, 0.8)
+script = ExtResource("5_hckfq")
+
+[node name="BackGround" parent="." instance=ExtResource("3_c08lb")]
+
+[node name="FieldControl" parent="." instance=ExtResource("4_thu0b")]
+offset_left = 358.0
+offset_top = 3.0
+offset_right = 358.0
+offset_bottom = 3.0
+
+[node name="GoldUI" parent="." instance=ExtResource("5_6uqmi")]
+offset_left = 1033.0
+offset_top = 5.0
+offset_right = 1033.0
+offset_bottom = 5.0

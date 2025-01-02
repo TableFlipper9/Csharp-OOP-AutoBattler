@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://cv2n38iqwiu5e"]
+
+[ext_resource type="Script" path="res://UnitFieldIcon.cs" id="1_vude0"]
+[ext_resource type="Texture2D" uid="uid://b4utcxiesg16a" path="res://GUI/GUI.png" id="2_umgyv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhyqv"]
+atlas = ExtResource("2_umgyv")
+region = Rect2(0.979797, 80.9706, 14.0682, 14.0467)
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(20, 18)
+layout_mode = 3
+anchor_right = 0.017
+anchor_bottom = 0.031
+offset_right = 0.415998
+offset_bottom = -0.0880013
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vude0")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+texture = SubResource("AtlasTexture_xhyqv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 19.0
+offset_bottom = 19.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+
+[connection signal="gui_input" from="." to="." method="GuiMouseInput"]
+[connection signal="mouse_entered" from="." to="." method="MouseEntered"]
+[connection signal="mouse_exited" from="." to="." method="MouseExited"]

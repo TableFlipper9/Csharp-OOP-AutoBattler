@@ -1,0 +1,40 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://bddageo3wan6b"]
+
+[ext_resource type="Texture2D" uid="uid://nhwbm5gmcdm6" path="res://Sprites/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier(Split Effects)/Soldier-Attack01_Effect.png" id="1_251l8"]
+[ext_resource type="Texture2D" uid="uid://bbu5ms5s5ovoe" path="res://Sprites/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier(Split Effects)/Soldier-Attack02_Effect.png" id="2_k42jr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvcxu"]
+atlas = ExtResource("1_251l8")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75hux"]
+atlas = ExtResource("1_251l8")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cqmq"]
+atlas = ExtResource("2_k42jr")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyejs"]
+atlas = ExtResource("2_k42jr")
+region = Rect2(400, 0, 100, 100)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvcxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75hux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5cqmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyejs")
+}],
+"loop": false,
+"name": &"Effect",
+"speed": 10.0
+}]
