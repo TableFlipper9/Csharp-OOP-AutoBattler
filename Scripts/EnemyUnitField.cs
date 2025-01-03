@@ -32,7 +32,7 @@ public partial class EnemyUnitField : UnitField
 		this.calculateInRowLocations();
 
 		for (int i = 0; i < 3/*Global.FrontEnemyStages[0].Length*/; i++){
-			var newUnit = GD.Load<PackedScene>("res://Enemy.tscn").Instantiate<Enemy>();
+			var newUnit = GD.Load<PackedScene>("res://Scenes/Enemy.tscn").Instantiate<Enemy>();
 			Global.StageEnemy enemy = Global.FrontEnemyStages[0][i];
 
 			newUnit.Init(enemy.level, enemy.type, locations[enemy.index]);

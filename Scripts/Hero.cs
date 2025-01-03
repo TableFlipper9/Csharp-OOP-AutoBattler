@@ -1,9 +1,10 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Xml.Linq;
 
-public partial class Hero : Unit
+public abstract partial class Hero : Unit
 {
 	public Global.HeroTypes type;
 
@@ -49,6 +50,19 @@ public partial class Hero : Unit
 		}
 	}
 
+	public override void FlipHorizontal(bool dir)
+	{
+		switch (dir)
+		{
+			case true:
+				this.Scale = new Vector2(-1, this.Scale.Y);
+				break;
+			case false:
+				this.Scale = new Vector2(1, this.Scale.Y);
+				break;
+		}
+	}
+
 	public void Init(Global.HeroTypes type, Vector2 locationInField)
 	{
 		this.level = Global.heroLevels[Global.heroStringMap[type]];
@@ -75,7 +89,6 @@ public partial class Hero : Unit
 
 	public override void Attack()
 	{
-		base.Attack();
 		//GD.Print(enemy);
 		if (enemy != null ){
 			switch (attackType){
@@ -122,14 +135,7 @@ public partial class Hero : Unit
 		}
 	}
 
-	public virtual void BasicAttack()
-	{
-		GD.Print("OO");
-	}
-	public virtual void ChargeAttack()
-	{
-	}
-	public virtual void UltimateAttack()
-	{ 
-	}
+	public abstract void BasicAttack();
+	public abstract void ChargeAttack();
+	public abstract void UltimateAttack();
 }

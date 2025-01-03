@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://x8f5nwgf1ibp"]
 
 [ext_resource type="Texture2D" uid="uid://b4utcxiesg16a" path="res://GUI/GUI.png" id="1_0jns7"]
-[ext_resource type="Script" path="res://UnitFieldControl.cs" id="1_jfsf7"]
-[ext_resource type="PackedScene" uid="uid://c15pale320c0b" path="res://UnitGridControl.tscn" id="3_fulle"]
+[ext_resource type="Script" path="res://Scripts/UnitFieldControl.cs" id="1_jfsf7"]
+[ext_resource type="PackedScene" uid="uid://c15pale320c0b" path="res://Scenes/UnitGridControl.tscn" id="3_fulle"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfjdq"]
 atlas = ExtResource("1_0jns7")
@@ -25,7 +25,7 @@ anchors_preset = -1
 offset_right = 364.0
 offset_bottom = 176.0
 texture = SubResource("AtlasTexture_qfjdq")
-region_rect = Rect2(111.995, 256.015, 80.0204, 48.089)
+region_rect = Rect2(112, 256, 80, 48)
 
 [node name="Back" parent="OpenedTab" instance=ExtResource("3_fulle")]
 layout_mode = 0

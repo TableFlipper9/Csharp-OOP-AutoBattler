@@ -18,12 +18,12 @@ public partial class HeroUnitField : UnitField
 	public int nextavalibleLocation;
 	public bool HasAvalibleSpace()
 	{
-		if (units.Count < capacity){
+		if (units.Count < capacity) {
 			nextavalibleLocation = units.Count;
 			return true;
 		}
-		for (int i = 0; i < units.Count; i++){
-			if (units[i] == null){
+		for (int i = 0; i < units.Count; i++) {
+			if (units[i] == null) {
 				nextavalibleLocation = i;
 				return true;
 			}
@@ -63,16 +63,16 @@ public partial class HeroUnitField : UnitField
 
 	public void Move()
 	{
-		for (int i = 0; i < this.units.Count; i++){
-			if (this.units[i] != null){
+		for (int i = 0; i < this.units.Count; i++) {
+			if (this.units[i] != null) {
 				this.units[i].playWalk();
 			}
 		}
 	}
 	public void Idle()
 	{
-		for (int i = 0; i < this.units.Count; i++){
-			if (this.units[i] != null){
+		for (int i = 0; i < this.units.Count; i++) {
+			if (this.units[i] != null) {
 				this.units[i].playIdle();
 			}
 		}
@@ -83,11 +83,11 @@ public partial class HeroUnitField : UnitField
 		this.units[index] = this.units[index2];
 		this.units[index2] = temp;
 
-		if (units[index] != null){
+		if (units[index] != null) {
 			this.units[index].SetIndex(index);
 			this.units[index].updateInRowLocation(locations[index]);
 		}
-		if (units[index2] != null){
+		if (units[index2] != null) {
 			this.units[index2].SetIndex(index2);
 			this.units[index2].updateInRowLocation(locations[index2]);
 		}
@@ -96,17 +96,26 @@ public partial class HeroUnitField : UnitField
 	public override void UnitDeath(int index)
 	{
 		base.UnitDeath(index);
-		EmitSignal(HeroUnitField.SignalName.UpdateUnitIcon,index, (string)null);
+		EmitSignal(HeroUnitField.SignalName.UpdateUnitIcon, index, (string)null);
 	}
 
 	public override void LevelUp(int capacity)
 	{
-		for (int i = this.capacity; i < capacity; i++){
+		for (int i = this.capacity; i < capacity; i++) {
 			units.Add(null);
 		}
 		base.LevelUp(capacity);
 		UpdateLocations();
 		EmitSignal(HeroUnitField.SignalName.IncreaseCapacity, this.capacity);
+	}
+
+	public void SoldUnit(int index)
+	{
+		units[index].die();
+		if (units[index] is Hero){
+			GD.Print("II");
+			//Global.GainGold(Global.heroSellvalues[(int)units[index].type]);
+		}
 	}
 	public override void _Ready()
 	{

@@ -1,26 +1,26 @@
 [gd_scene load_steps=11 format=3 uid="uid://bvf0jj3r7py24"]
 
-[ext_resource type="Texture2D" uid="uid://bwejkmhtkxw1a" path="res://Sprites/All.png" id="1_adpge"]
-[ext_resource type="Script" path="res://SelectedIcon.cs" id="1_p3umq"]
+[ext_resource type="Script" path="res://Scripts/SelectedIcon.cs" id="1_d0see"]
+[ext_resource type="Texture2D" uid="uid://bwejkmhtkxw1a" path="res://Sprites/All.png" id="2_mln66"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_itn87"]
-atlas = ExtResource("1_adpge")
+atlas = ExtResource("2_mln66")
 region = Rect2(447.97, 47.9892, 32.0322, 32.0155)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m2261"]
-atlas = ExtResource("1_adpge")
+atlas = ExtResource("2_mln66")
 region = Rect2(448, 80, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mugci"]
-atlas = ExtResource("1_adpge")
+atlas = ExtResource("2_mln66")
 region = Rect2(464, 80, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1vys7"]
-atlas = ExtResource("1_adpge")
+atlas = ExtResource("2_mln66")
 region = Rect2(480, 80, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qnyka"]
-atlas = ExtResource("1_adpge")
+atlas = ExtResource("2_mln66")
 region = Rect2(496, 80, 16, 16)
 
 [sub_resource type="Animation" id="Animation_paruc"]
@@ -71,7 +71,7 @@ offset_bottom = -610.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_p3umq")
+script = ExtResource("1_d0see")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2

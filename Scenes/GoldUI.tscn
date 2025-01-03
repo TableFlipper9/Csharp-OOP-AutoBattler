@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://dluo8yr1ie576"]
 
-[ext_resource type="Script" path="res://GoldUi.cs" id="1_kn2v2"]
+[ext_resource type="Script" path="res://Scripts/GoldUi.cs" id="1_kn2v2"]
 [ext_resource type="Texture2D" uid="uid://b4utcxiesg16a" path="res://GUI/GUI.png" id="1_ycv62"]
 [ext_resource type="Texture2D" uid="uid://dh10xsg4dd6md" path="res://GUI/coin-Sheet.png" id="2_41rc8"]
 [ext_resource type="FontFile" uid="uid://bhsgy5x3rcx1n" path="res://GUI/MinimalPixel v2.ttf" id="3_o1ckk"]

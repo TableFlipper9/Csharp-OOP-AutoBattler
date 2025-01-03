@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=4 uid="uid://dah5jkkp0q1mn"]
 
-[ext_resource type="Script" path="res://BackGround.cs" id="1_8e3ur"]
+[ext_resource type="Script" path="res://Scripts/BackGround.cs" id="1_8e3ur"]
 [ext_resource type="Texture2D" uid="uid://c8ey4ae2n1s13" path="res://Enviroment/backGround/background_layer_1.png" id="1_85vni"]
 [ext_resource type="Texture2D" uid="uid://c68kk7cb0ihiu" path="res://Enviroment/TileSet/TX Tileset Grass.png" id="2_fj72i"]
 [ext_resource type="Texture2D" uid="uid://dnkhk1u6nveeq" path="res://Enviroment/TileSet/TX Tileset Stone Ground.png" id="3_lfpk7"]

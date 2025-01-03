@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://dyx8o2yxtjxl4"]
+
+[ext_resource type="Script" path="res://Scripts/Main.cs" id="1_3bx0i"]
+[ext_resource type="PackedScene" uid="uid://cx3b8inyo0ihh" path="res://Scenes/UnitShopControl.tscn" id="2_mcgwl"]
+[ext_resource type="PackedScene" uid="uid://bw8eqjgx0nlks" path="res://Scenes/Field.tscn" id="3_yew8b"]
+[ext_resource type="Script" path="res://Scripts/HeroUnitField.cs" id="4_pn6sw"]
+[ext_resource type="Script" path="res://Scripts/EnemyUnitField.cs" id="5_5luac"]
+[ext_resource type="PackedScene" uid="uid://dah5jkkp0q1mn" path="res://Scenes/BackGround.tscn" id="6_e5ooa"]
+[ext_resource type="PackedScene" uid="uid://x8f5nwgf1ibp" path="res://Scenes/UnitFieldControl.tscn" id="7_5aes5"]
+[ext_resource type="PackedScene" uid="uid://dluo8yr1ie576" path="res://Scenes/GoldUI.tscn" id="8_trjcv"]
+
+[node name="Control" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_3bx0i")
+
+[node name="UnitShopControl" parent="." instance=ExtResource("2_mcgwl")]
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 4.0
+offset_bottom = 2.0
+
+[node name="HeroFrontField" parent="." instance=ExtResource("3_yew8b")]
+y_sort_enabled = true
+position = Vector2(-54, 313)
+scale = Vector2(0.8, 0.8)
+script = ExtResource("4_pn6sw")
+
+[node name="EnemyFrontField" parent="." instance=ExtResource("3_yew8b")]
+y_sort_enabled = true
+position = Vector2(1209, 320)
+scale = Vector2(0.8, 0.8)
+script = ExtResource("5_5luac")
+
+[node name="BackGround" parent="." instance=ExtResource("6_e5ooa")]
+
+[node name="FieldControl" parent="." instance=ExtResource("7_5aes5")]
+offset_left = 358.0
+offset_top = 3.0
+offset_right = 358.0
+offset_bottom = 3.0
+
+[node name="GoldUI" parent="." instance=ExtResource("8_trjcv")]
+offset_left = 1033.0
+offset_top = 5.0
+offset_right = 1033.0
+offset_bottom = 5.0

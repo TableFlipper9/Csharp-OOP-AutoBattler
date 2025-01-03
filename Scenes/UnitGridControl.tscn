@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://c15pale320c0b"]
 
 [ext_resource type="Texture2D" uid="uid://b4utcxiesg16a" path="res://GUI/GUI.png" id="1_2t0j3"]
-[ext_resource type="Script" path="res://UnitGridControl.cs" id="1_d70c2"]
-[ext_resource type="PackedScene" uid="uid://bvf0jj3r7py24" path="res://SelectedIcon.tscn" id="3_ffg26"]
+[ext_resource type="Script" path="res://Scripts/UnitGridControl.cs" id="1_d70c2"]
+[ext_resource type="PackedScene" uid="uid://bvf0jj3r7py24" path="res://Scenes/SelectedIcon.tscn" id="3_ffg26"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nx7x5"]
 atlas = ExtResource("1_2t0j3")

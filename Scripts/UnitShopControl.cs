@@ -24,7 +24,7 @@ public partial class UnitShopControl : Control
 	}
 	public void AddUnit(Global.HeroTypes type)
 	{
-		var newUnit = GD.Load<PackedScene>("res://LevelUpUnitButton.tscn").Instantiate<LevelUpUnitButton>();
+		var newUnit = GD.Load<PackedScene>("res://Scenes/LevelUpUnitButton.tscn").Instantiate<LevelUpUnitButton>();
 		newUnit.OnPurchase += this.PurchaseUnit;
 		newUnit.Init(type);
 		grid.AddChild(newUnit);

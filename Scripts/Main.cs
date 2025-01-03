@@ -42,7 +42,7 @@ public partial class Main : Node2D
 		{
 			if (HFF.HasAvalibleSpace())
 			{
-				var hr = GD.Load<PackedScene>("res://Archer.tscn").Instantiate<Archer>();
+				var hr = GD.Load<PackedScene>("res://Scenes/Archer.tscn").Instantiate<Archer>();
 				hr.Init(Global.HeroTypes.Archer, HFF.locations[HFF.nextavalibleLocation]);
 				hr.KilledOpponent += this.FindNewEnemyHFF;
 
@@ -77,14 +77,25 @@ public partial class Main : Node2D
 	{
 		//GD.Print(HFF.units[0].enemy);
 		//GD.Print(HFF.units[0].closestEnemy(EFF.units));
-		//GD.Print(EFF.units[2]);
+		GD.Print(EFF.units.Count);
+		bool ok = false;
+		foreach (Unit unit in EFF.units) {
+			if (unit != null)
+				{ ok = true; break; }
+		}
+		if (ok)
 		HFF.units[0].moveToAttack(HFF.units[0].closestEnemy(EFF.units).GlobalPosition);
+		else
+		{
+			HFF.units[0].enemy = null;
+			HFF.units[0].updateInRowLocation(HFF.units[0].locationInrow);
+		}
 	}
 
 	public void CreateNewHero(int type, int Price)
 	{
 		if (HFF.HasAvalibleSpace()){
-			var hr = GD.Load<PackedScene>("res://Archer.tscn").Instantiate<Archer>();
+			var hr = GD.Load<PackedScene>("res://Scenes/Archer.tscn").Instantiate<Archer>();
 			hr.Init((Global.HeroTypes)type, HFF.locations[HFF.nextavalibleLocation]);
 			this.ShopControl.units[type].OnLevelUp += hr.LevelUp;
 			HFF.AddNewUnit(hr);

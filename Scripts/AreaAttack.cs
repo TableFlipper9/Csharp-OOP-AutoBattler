@@ -11,6 +11,7 @@ public partial class AreaAttack : Area2D
 	private string ownerType;
 
 	private Shape2D shape;
+	private Vector2 scale;
 	public void OnBodyEntered(Node2D body)
 	{
 		if (body is Unit unit){
@@ -28,13 +29,13 @@ public partial class AreaAttack : Area2D
 		foreach (var unit in unitList){
 			switch (ownerType){
 				case "Archer" or "Executioner":
-					if(unit is Hero hero){
-						hero.takeDamage(damage);
+					if (unit is Enemy enemy){
+						enemy.takeDamage(damage);
 					}
 					break;
 				case "GOBLIN" or "Healer":
-					if (unit is Enemy enemy){
-						enemy.takeDamage(damage);
+					if (unit is Hero hero){
+						hero.takeDamage(damage);
 					}
 					break;
 				default:
@@ -44,24 +45,24 @@ public partial class AreaAttack : Area2D
 		QueueFree();
 	}
 
-	public void Init(string type, Shape2D shape, int damage, Vector2 position, Vector2 scale)
+	public void Init(string type, Shape2D shape, int damage, Vector2 position, Vector2 animationScale, Vector2 hitBoxScale)
 	{
 		ownerType = type;
 		this.shape = shape;
 		this.damage = damage;
 		this.GlobalPosition = position;
-		this.Scale = scale;
+		this.Scale = animationScale;
+		this.scale = hitBoxScale;
 	}
 	public override void _Ready()
 	{
 		collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 		animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		collisionShape.Shape = this.shape;
-		animatedSprite.SpriteFrames = GD.Load<SpriteFrames>("res://Animations/Effects/"+ ownerType +".tres");
+		collisionShape.Scale = this.scale;
+
+		//animatedSprite.SpriteFrames = GD.Load<SpriteFrames>("res://Animations/Effects/"+ ownerType +".tres");
 		animatedSprite.Play("Effect");
 	}
 
-	public override void _Process(double delta)
-	{
-	}
 }

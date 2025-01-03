@@ -9,13 +9,14 @@ public partial class UnitFieldControl : Control
 	public NinePatchRect closedTab;
 	public UnitGridControl front;
 	public UnitGridControl back;
-	// Called when the node enters the scene tree for the first time.
+
 	public void Init(HeroUnitField HFF,HeroUnitField HBF)
 	{
 		if (HFF != null){
 			this.front.UpdateAfterSwap += HFF.UpdateAfterSwap;
 			HFF.UpdateUnitIcon += this.front.update;
 			HFF.IncreaseCapacity += this.front.UpdateCap;
+			this.front.SellUnit += HFF.SoldUnit;
 		}
 		if (HBF != null){
 			this.back.UpdateAfterSwap += HBF.UpdateAfterSwap;
@@ -32,12 +33,9 @@ public partial class UnitFieldControl : Control
 	
 	public void OnCloseToggle(bool pressed)
 	{
-		GD.Print("PP");
 		openedTab.Visible = !(openedTab.Visible);
 		closedTab.Visible = !(closedTab.Visible);
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 	}

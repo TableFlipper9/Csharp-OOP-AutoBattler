@@ -15,7 +15,7 @@ public partial class UnitGridControl : MarginContainer
 	{
 		while(this.capacity<capacity)
 		{
-			var newUnit = GD.Load<PackedScene>("res://UnitFieldIcon.tscn").Instantiate<UnitFieldIcon>();
+			var newUnit = GD.Load<PackedScene>("res://Scenes/UnitFieldIcon.tscn").Instantiate<UnitFieldIcon>();
 			LinkSignal(newUnit);
 
 			newUnit.Init(null, this.capacity);
@@ -90,12 +90,21 @@ public partial class UnitGridControl : MarginContainer
 		//units[b].update(tempType, tempIndex);
 	}
 
+	[Signal]
+	public delegate void SellUnitEventHandler(int index);
+
+	public void SellThisUnit(int index)
+	{
+		EmitSignal(UnitGridControl.SignalName.SellUnit, index);
+	}
+
 	public void LinkSignal(UnitFieldIcon unit)
 	{
 		unit.OnMouseEntered += this.MouseEntered;
 		unit.OnMouseExited += this.MouseExited;
 		unit.MousePressed += this.OnMousePressed;
 		unit.MouseReleased += this.OnMouseRelease;
+		unit.SellUnit += this.SellThisUnit;
 	}
 
 	public void update(int index, string type)

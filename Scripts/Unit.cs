@@ -22,6 +22,7 @@ public abstract partial class Unit : CharacterBody2D
 	{
 		Velocity = GlobalPosition.DirectionTo(target) * Speed;
 		if (GlobalPosition.DistanceTo(target) > 5 && isMoving == true) {
+
 			MoveAndSlide();
 			if (sprite.Animation != "Walk") {
 				sprite.Play("Walk");
@@ -33,11 +34,14 @@ public abstract partial class Unit : CharacterBody2D
 		}
 	}
 
+	public abstract void FlipHorizontal(bool dir);
+
 	public override void _Process(double delta)
 	{
 		if (isMoving == true && enemy != null) {
 			moveToAttack(enemy.GlobalPosition);
 		}
+		CheckEnemyAlive();
 	}
 
 	public CollisionShape2D collision;
@@ -58,7 +62,7 @@ public abstract partial class Unit : CharacterBody2D
 	{
 		Unit min = null;
 		foreach (Unit current in list) {
-			if (current != null && current != this.enemy) {
+			if (current != null) {
 				if (min == null){
 					min = current;
 				}
@@ -85,6 +89,7 @@ public abstract partial class Unit : CharacterBody2D
 	{
 		isMoving = true;
 		this.target = destonation;
+		FlipHorizontal(target.X < this.GlobalPosition.X);
 	}
 
 	public bool isAttacking = false;
@@ -97,10 +102,8 @@ public abstract partial class Unit : CharacterBody2D
 		if (animation.Contains("Attack")) {
 			Attack();
 			sprite.Play("Idle");
-			attackTimer.Start();
 		}
 		if (animation == "Death") {
-			EmitSignal(Unit.SignalName.UnitDeath, indexInList);
 			this.QueueFree();
 		}
 	}
@@ -118,7 +121,7 @@ public abstract partial class Unit : CharacterBody2D
 	{
 		health -= damage;
 
-		var de = GD.Load<PackedScene>("res://DamageEffect.tscn").Instantiate<DamageEffect>();
+		var de = GD.Load<PackedScene>("res://Scenes/DamageEffect.tscn").Instantiate<DamageEffect>();
 		de.Init(damage, this.GlobalPosition);
 		AddChild(de);
 
@@ -142,9 +145,11 @@ public abstract partial class Unit : CharacterBody2D
 	public delegate void KilledOpponentEventHandler(int index);
 	public void CheckEnemyAlive()
 	{
-		if(enemy.health <= 0){
-			EmitSignal(Unit.SignalName.KilledOpponent, indexInList);
-			//enemy = null;
+		if (enemy != null){
+			if (enemy.health <= 0){
+				EmitSignal(Unit.SignalName.KilledOpponent, indexInList);
+				//enemy = null;
+			}
 		}
 	}
 
@@ -155,6 +160,7 @@ public abstract partial class Unit : CharacterBody2D
 		isMoving = false;
 		healthBar.Visible = false;
 		sprite.Play("Death");
+		EmitSignal(Unit.SignalName.UnitDeath, indexInList);
 	}
 
 	public Vector2 locationInrow;
@@ -163,7 +169,5 @@ public abstract partial class Unit : CharacterBody2D
 		this.locationInrow = location;
 		moveHere(locationInrow);
 	}
-	public virtual void Attack()
-	{
-	}
+	public abstract void Attack();
 }

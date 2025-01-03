@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bw8eqjgx0nlks"]
 
-[ext_resource type="Script" path="res://UnitField.cs" id="1_e62sy"]
+[ext_resource type="Script" path="res://Scripts/UnitField.cs" id="1_e62sy"]
 
 [node name="Field" type="Node2D"]
 script = ExtResource("1_e62sy")

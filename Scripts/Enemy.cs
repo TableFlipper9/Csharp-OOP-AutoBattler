@@ -39,6 +39,19 @@ public partial class Enemy : Unit
 		}
 	}
 
+	public override void FlipHorizontal(bool dir)
+	{
+		switch (dir)
+		{
+			case false:
+				this.Scale = new Vector2(-1, this.Scale.Y);
+				break;
+			case true:
+				this.Scale = new Vector2(1, this.Scale.Y);
+				break;
+		}
+	}
+
 	public Enemy() : base() { }
 	public void Init(int level,Global.EnemyTypes type, Vector2 locationInfield)
 	{
@@ -69,5 +82,9 @@ public partial class Enemy : Unit
 		}
 		attackTimer.Start();
 		moveHere(locationInrow);
+	}
+
+	public override void Attack() 
+	{
 	}
 }

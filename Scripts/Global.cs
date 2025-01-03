@@ -28,6 +28,7 @@ public partial class Global : Node
 	public static int[] heroPrices = new int[] { 10, 300, 500, 3000, 8000 };
 	public static int[] heroUnlockstage = new int[] { 1, 1, 3, 8, 14 };
 	public static int[] heroMaxCharge = new int[] { 100, 75, 50, 250, 155 };
+	public static int[] heroSellvalues = new int[] { 5, 10, 20, 30, 50 };
 
 	public static int[][] heroMaxHealth = new int[][] {
 		new int[] { 100, 200, 300 },
@@ -38,7 +39,7 @@ public partial class Global : Node
 	};
 	public static int[][][] heroDamage = new int[][][] {
 		new int[][] { new int[] { 100, 200, 300 }, new int[] { 120, 230, 340}, new int[] { 210, 320, 430 } },
-		new int[][] { new int[] { 10, 200, 300 }, new int[] { 10, 230, 340}, new int[] { 210, 320, 430 } },
+		new int[][] { new int[] { 100, 200, 300 }, new int[] { 100, 230, 340}, new int[] { 210, 320, 430 } },
 		new int[][] { new int[] { 100, 200, 300 }, new int[] { 120, 230, 340}, new int[] { 210, 320, 430 } },
 		new int[][] { new int[] { 100, 200, 300 }, new int[] { 120, 230, 340}, new int[] { 210, 320, 430 } },
 		new int[][] { new int[] { 100, 200, 300 }, new int[] { 120, 230, 340 }, new int[] { 210, 320, 430 } }
@@ -75,7 +76,7 @@ public partial class Global : Node
 	public static int[] enemyMaxCharge = new int[] { 100, 75, 50, 250, 155 };
 
 	public static int[][] enemyMaxHealth = new int[][] {
-		new int[] { 1000, 2000, 3000 },
+		new int[] { 100, 200, 300 },
 		new int[] { 150, 250, 350 },
 		new int[] { 120, 220, 320 },
 		new int[] { 130, 230, 330 },

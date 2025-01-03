@@ -23,7 +23,6 @@ public partial class UnitFieldIcon : Control
 		updateIcon();
 	}
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		GD.Print(Global.heroLevels[(int)Global.HeroTypes.Chaverly]);
@@ -41,9 +40,12 @@ public partial class UnitFieldIcon : Control
 	[Signal]
 	public delegate void MouseReleasedEventHandler();
 
+	[Signal]
+	public delegate void SellUnitEventHandler(int index);
+
 	public void updateIcon()
 	{
-		if (this.type != null) { 
+		if (this.type != null && type != (string)null) { 
 			charIcon.Texture = GD.Load<Texture2D>("res://Icons/Units/" + this.type + ".png");
 		}
 		else { 
@@ -52,11 +54,17 @@ public partial class UnitFieldIcon : Control
 	}
 	public void GuiMouseInput(InputEvent evnt)
 	{
-		if (evnt.IsActionPressed("MouseLeftClick")){
-			EmitSignal(UnitFieldIcon.SignalName.MousePressed,this);
+		if (evnt.IsActionPressed("MouseLeftClick"))
+		{
+			EmitSignal(UnitFieldIcon.SignalName.MousePressed, this);
 		}
-		else if (evnt.IsActionReleased("MouseLeftClick")){
+		else if (evnt.IsActionReleased("MouseLeftClick"))
+		{
 			EmitSignal(UnitFieldIcon.SignalName.MouseReleased);
+		}
+		else if (evnt.IsActionPressed("MouseRightClick"))
+		{
+			EmitSignal(UnitFieldIcon.SignalName.SellUnit,this.indexInField);
 		}
 	}
 	new public void MouseEntered()
@@ -69,7 +77,6 @@ public partial class UnitFieldIcon : Control
 		EmitSignal(UnitFieldIcon.SignalName.OnMouseExited);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 	}
