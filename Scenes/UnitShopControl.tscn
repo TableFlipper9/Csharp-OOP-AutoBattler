@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cx3b8inyo0ihh"]
+[gd_scene load_steps=6 format=3 uid="uid://cx3b8inyo0ihh"]
 
 [ext_resource type="Texture2D" uid="uid://b4utcxiesg16a" path="res://GUI/GUI.png" id="1_103iw"]
 [ext_resource type="Script" path="res://Scripts/UnitShopControl.cs" id="1_o5756"]
@@ -11,6 +11,10 @@ region = Rect2(112, 256, 80, 48)
 atlas = ExtResource("1_103iw")
 region = Rect2(48.1215, 91.6637, 31.7739, 39.2538)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6sky"]
+atlas = ExtResource("1_103iw")
+region = Rect2(0, 0, 192, 304)
+
 [node name="UnitShopControl" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -22,23 +26,41 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o5756")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="OpenedTab" type="MarginContainer" parent="."]
 layout_mode = 2
 offset_right = 350.0
-offset_bottom = 180.0
+offset_bottom = 176.0
 
-[node name="TextureRect" type="NinePatchRect" parent="MarginContainer"]
+[node name="TextureRect" type="NinePatchRect" parent="OpenedTab"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_vhygq")
 
-[node name="TextureRect2" type="NinePatchRect" parent="MarginContainer"]
+[node name="TextureRect2" type="NinePatchRect" parent="OpenedTab"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_nvn4r")
 region_rect = Rect2(-1.07309, 1.21867, 34.3051, 36.7813)
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="OpenedTab"]
 custom_minimum_size = Vector2(240, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 columns = 4
+
+[node name="ClosedTab" type="NinePatchRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+offset_right = 349.0
+offset_bottom = 22.0
+texture = SubResource("AtlasTexture_v6sky")
+region_rect = Rect2(111.995, 256.015, 80.0204, 6.03076)
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 348.0
+offset_bottom = 22.0
+toggle_mode = true
+flat = true
+
+[connection signal="toggled" from="Button" to="." method="OnButtonClose"]
