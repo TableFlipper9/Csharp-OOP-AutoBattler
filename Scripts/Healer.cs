@@ -32,12 +32,13 @@ public partial class Healer : Hero
 	public bool walk = false;
 	public override void _Process(double delta)
 	{
+		GD.Print(Global.stateChanger);
 		base._Process(delta);
-		if (Global.stateChanger == true && walk == false)
+		if (Global.stateChanger == false && walk == false)
 		{
 			enemy = null;
 			walk = true;
-			updateInRowLocation(locationInrow);
+			moveHere(locationInrow);
 		}
 		else
 		{

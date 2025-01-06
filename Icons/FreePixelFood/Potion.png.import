@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu787xygqm1xa"
-path="res://.godot/imported/Beer.png-5d7c38247764ded71657c08dbfe488d7.ctex"
+uid="uid://di134amso4ngc"
+path="res://.godot/imported/Potion.png-0fd2d64de26d1b9c59b738c825ecc05d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Icons/FreePixelFood/Beer.png"
-dest_files=["res://.godot/imported/Beer.png-5d7c38247764ded71657c08dbfe488d7.ctex"]
+source_file="res://Icons/FreePixelFood/Potion.png"
+dest_files=["res://.godot/imported/Potion.png-0fd2d64de26d1b9c59b738c825ecc05d.ctex"]
 
 [params]
 

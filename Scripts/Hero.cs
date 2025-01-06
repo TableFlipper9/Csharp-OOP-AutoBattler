@@ -37,14 +37,13 @@ public abstract partial class Hero : Unit
 		this.level = Global.heroLevels[(int)type];
 		this.maxHealth = Global.heroMaxHealth[(int)type][level];
 		this.damage.basicDamage = Global.heroDamage[(int)type][level][0];
-		GD.Print(this.type, this.damage.basicDamage);
 		this.damage.specialDamage = Global.heroDamage[(int)type][level][1];
 		this.damage.ultimateDamage = Global.heroDamage[(int)type][level][2];
 		this.chargeRate.basicCharge = Global.heroChargeRate[(int)type][level][0];
 		this.chargeRate.specialCharge = Global.heroChargeRate[(int)type][level][1];
 		this.chargeRate.ultimateCharge = Global.heroChargeRate[(int)type][level][2];
 
-		this.health = (maxHealth * healthPercentage) / 100;
+		this.health = (int)((maxHealth * healthPercentage) / 100);
 		if (healthBar != null){
 			healthBar.ChangeMax(maxHealth, maxCharge);
 			healthBar.ChangeValue(health, charge);
@@ -152,6 +151,7 @@ public abstract partial class Hero : Unit
 		{
 			LevelUp();
 		}
+		GD.Print("OO",this.damage.basicDamage);
 		this.damage.basicDamage = load.damage;
 		this.health = load.health;
 		this.maxHealth = load.maxHealth;
@@ -160,7 +160,7 @@ public abstract partial class Hero : Unit
 		healthBar.ChangeMax(maxHealth, maxCharge);
 		healthBar.ChangeValue(health, charge);
 
-		healthPercentage = (maxHealth / 100) * health;
+		healthPercentage = (health / (float)maxHealth) * 100;
 	}
 
 	public void IncreaseHP(int hp)
@@ -168,7 +168,7 @@ public abstract partial class Hero : Unit
 		GD.Print(health);
 		this.health += hp;
 		GD.Print(health);
-		healthPercentage = (maxHealth / 100) * health;
+		healthPercentage = (health / (float)maxHealth) * 100;
 		healthBar.ChangeMax(maxHealth, maxCharge);
 		healthBar.ChangeValue(health, charge);
 	}
@@ -183,7 +183,7 @@ public abstract partial class Hero : Unit
 	{
 		GD.Print("FFFF");
 		this.maxHealth += maxHP;
-		this.health = (maxHealth * healthPercentage) / 100;
+		this.health = (int)((maxHealth * healthPercentage) / 100);
 		healthBar.ChangeMax(maxHealth, maxCharge);
 		healthBar.ChangeValue(health, charge);
 	}

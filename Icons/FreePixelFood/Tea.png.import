@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://boq7fqcuahx8b"
-path="res://.godot/imported/PieApple.png-dad205bbadf186c03d6bcd7602215e58.ctex"
+uid="uid://bu787xygqm1xa"
+path="res://.godot/imported/Tea.png-0841fff23b3967a93d93827eebdb0ed2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Icons/FreePixelFood/PieApple.png"
-dest_files=["res://.godot/imported/PieApple.png-dad205bbadf186c03d6bcd7602215e58.ctex"]
+source_file="res://Icons/FreePixelFood/Tea.png"
+dest_files=["res://.godot/imported/Tea.png-0841fff23b3967a93d93827eebdb0ed2.ctex"]
 
 [params]
 

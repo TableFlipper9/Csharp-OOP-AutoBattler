@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://di134amso4ngc"
-path="res://.godot/imported/Marmalade.png-6ff137b7b6a38e559a77dd19abefd5aa.ctex"
+uid="uid://boq7fqcuahx8b"
+path="res://.godot/imported/Pie.png-a6c8cf5cd92ad9a0e750b9bfb6f9f0bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Icons/FreePixelFood/Assets/FreePixelFood/Sprite/Food/Marmalade.png"
-dest_files=["res://.godot/imported/Marmalade.png-6ff137b7b6a38e559a77dd19abefd5aa.ctex"]
+source_file="res://Icons/FreePixelFood/Pie.png"
+dest_files=["res://.godot/imported/Pie.png-a6c8cf5cd92ad9a0e750b9bfb6f9f0bd.ctex"]
 
 [params]
 

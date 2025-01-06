@@ -19,13 +19,13 @@ enemyStringMap=0,1,2,3,4
 enemyNames=Goblin,ArmourOrc,Rider
 enemyMaxCharge=100,75,50,250,155
 enemyMaxHealth=100,200,300;150,250,350;120,220,320;130,230,330;140,240,340
-enemyDamage=100,200,300;120,230,340|100,200,300;120,230,340|100,200,300;120,230,340|100,200,300;120,230,340|100,200,300;120,230,340
+enemyDamage=100,200,300;120,230,340|110,200,300;190,230,340|100,200,300;120,230,340|100,200,300;120,230,340|100,200,300;120,230,340
 enemyChargeRate=100,200,300;120,230,340|100,200,300;120,230,340|100,200,300;120,230,340|100,200,300;120,230,340|100,200,300;120,230,340
 
 enemyStageCapacitiesFront=2,3,4,4,4,5,6,7,7,7,7
 enemyStageCapacitiesBack=2,3,4,4,4,5,6,7,7,7,7
-FrontEnemyStages=Goblin,0,0|Goblin,0,0;Goblin,1,0
-BackEnemyStages=Goblin,0,0|Goblin,0,0;Goblin,1,0
+FrontEnemyStages=Goblin,0,0|Goblin,0,0;Goblin,1,1|Goblin,0,1;Goblin,1,0;Goblin,2,1|Goblin,0,1;Goblin,1,0;Goblin,2,1|Goblin,0,1;Goblin,1,0;Goblin,2,1|Goblin,0,1;Goblin,1,0;Goblin,2,1
+BackEnemyStages=Goblin,0,1|Goblin,0,0;Goblin,1,1|Goblin,0,1;Goblin,1,1|Goblin,0,1;Goblin,1,1|Goblin,0,1;Goblin,1,1|Goblin,0,1;Goblin,1,1
 
 levelUpPrices=10,15,20,30,50,40
 purchaseUpPrices=1,2,3,10,15,20

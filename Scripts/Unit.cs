@@ -7,7 +7,7 @@ public abstract partial class Unit : CharacterBody2D
 {
 	public int maxHealth;
 	public int health;
-	public int healthPercentage = 100;
+	public float healthPercentage = 100;
 	public int maxCharge;
 	public int charge;
 	public bool isDead = false;
@@ -64,10 +64,10 @@ public abstract partial class Unit : CharacterBody2D
 		Unit min = null;
 		foreach (Unit current in list) {
 			if (current != null ) {
-				if (min == null){
+				if (min == null && current != this){
 					min = current;
 				}
-				if (this.GlobalPosition.DistanceTo(current.GlobalPosition) < this.GlobalPosition.DistanceTo(min.GlobalPosition)) {
+				else if (this.GlobalPosition.DistanceTo(current.GlobalPosition) < this.GlobalPosition.DistanceTo(min.GlobalPosition) && current != this) {
 					min = current;
 				}
 			}
@@ -115,9 +115,15 @@ public abstract partial class Unit : CharacterBody2D
 	public void moveToAttack(Vector2 enemyGlobalPosition)
 	{
 		float distance = (float)Math.Sqrt(Math.Pow((this.GlobalPosition.X - enemyGlobalPosition.X), 2) + Math.Pow((this.GlobalPosition.Y - enemyGlobalPosition.Y), 2));
-		//if(distance >= 20){
-		this.target.X = enemyGlobalPosition.X + range * ((this.GlobalPosition.X - enemyGlobalPosition.X) / distance);
-		this.target.Y = enemyGlobalPosition.Y + range * ((this.GlobalPosition.Y - enemyGlobalPosition.Y) / distance);
+		if (distance > range)
+		{
+			this.target.X = enemyGlobalPosition.X + range * ((this.GlobalPosition.X - enemyGlobalPosition.X) / distance);
+			this.target.Y = enemyGlobalPosition.Y + range * ((this.GlobalPosition.Y - enemyGlobalPosition.Y) / distance);
+		}
+		else
+		{
+			//this.target = enemyGlobalPosition;
+		}
 		isMoving = true;
 		//FlipHorizontal(target.X < this.GlobalPosition.X);
 	}
@@ -131,7 +137,7 @@ public abstract partial class Unit : CharacterBody2D
 		de.Init(damage, this.GlobalPosition);
 		AddChild(de);
 
-		healthPercentage = (maxHealth / 100) * health;
+		healthPercentage = (health / (float)maxHealth) * 100;
 		if (health <= 0) {
 			die();
 		}

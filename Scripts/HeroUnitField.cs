@@ -113,13 +113,22 @@ public partial class HeroUnitField : UnitField
 
 	public void Upgrade()
 	{
-		if (Global.SpendGold(Global.capacityPrices[this.level]))
+		if (Global.SaveFile == false)
+		{
+			if (Global.SpendGold(Global.capacityPrices[this.level]))
+			{
+				this.level++;
+				int cap = Global.capacitiUpgrades[this.level];
+				LevelUp(cap);
+			}
+			else GD.Print("NoMoneyForUpgarde");
+		}
+		else
 		{
 			this.level++;
 			int cap = Global.capacitiUpgrades[this.level];
 			LevelUp(cap);
 		}
-		else GD.Print("NoMoneyForUpgarde");
 	}
 
 	public override void LevelUp(int capacity)

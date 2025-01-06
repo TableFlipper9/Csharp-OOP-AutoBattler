@@ -21,7 +21,7 @@ public partial class Inventory : Control
 	{
 		var newUnit = GD.Load<PackedScene>("res://Scenes/Item.tscn").Instantiate<Item>();
 		newUnit.ButtonPressed += this.ActivateIteam;
-		newUnit.Init(type,"Bread",items.Count);
+		newUnit.Init(type, Global.itemsNames[(int)type],items.Count);
 		grid.AddChild(newUnit);
 		items.Add(newUnit);
 	}

@@ -49,7 +49,7 @@ public partial class LevelUpUnitButton : Control
 	}
 	public void OnLevelUPButtuonPressed()
 	{
-	   if( Global.heroLevels[(int)this.type] < 3){
+	   if( Global.heroLevels[(int)this.type] < 2){
 
 			if (Global.Gold > levelUPPrice){
 

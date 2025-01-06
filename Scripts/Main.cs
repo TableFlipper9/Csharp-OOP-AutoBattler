@@ -252,8 +252,8 @@ public partial class Main : Node2D
 					health = int.Parse(heroParams[0]),
 					maxHealth = int.Parse(heroParams[1]),
 					type = int.Parse(heroParams[2]),
-					damage =  int.Parse(heroParams[3]) ,
-					level = int.Parse(heroParams[4]),
+					level = int.Parse(heroParams[3]),
+					damage = int.Parse(heroParams[4]),
 					charge = int.Parse(heroParams[5]),
 				};
 				CreateNewHero(Global.LoadingHero.type, 0);
@@ -277,6 +277,7 @@ public partial class Main : Node2D
 		playButton.StartPlan();
 		if(Global.Stage == 5)
 		{
+			GD.Print("YOU WIN");
 			GetTree().Quit();
 		}
 		EFF.CreateNewFrontField();

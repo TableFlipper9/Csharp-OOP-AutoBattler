@@ -31,7 +31,7 @@ public abstract partial class Enemy : Unit
 		this.chargeRate.basicCharge = Global.enemyChargeRate[(int)type][level][0];
 		this.chargeRate.specialCharge = Global.enemyChargeRate[(int)type][level][1];
 
-		this.health = (maxHealth * healthPercentage) / 100;
+		this.health = (int)((maxHealth * healthPercentage) / 100);
 		if (healthBar != null)
 		{
 			healthBar.ChangeMax(maxHealth, maxCharge);

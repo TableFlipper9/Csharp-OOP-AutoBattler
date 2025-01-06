@@ -13,9 +13,9 @@ public partial class SelectedIcon : Control
 	}
 	public void SetSize(Vector2 location, Vector2 size)
 	{
-		this.Visible = true;
 		this.GlobalPosition = location;
 		this.Scale = size;
+		this.Visible = true;
 	}
 	public void MoveHere()
 	{
