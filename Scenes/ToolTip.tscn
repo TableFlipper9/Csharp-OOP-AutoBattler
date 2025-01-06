@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://bfghgtme5q7ji"]
+
+[ext_resource type="Script" path="res://Scripts/ToolTip.cs" id="1_i7h52"]
+[ext_resource type="Texture2D" uid="uid://b4utcxiesg16a" path="res://GUI/GUI.png" id="2_j6rbo"]
+[ext_resource type="Texture2D" uid="uid://b667381ax6xt5" path="res://GUI/GUI_4x.png" id="3_m0ycq"]
+[ext_resource type="FontFile" uid="uid://bhsgy5x3rcx1n" path="res://GUI/MinimalPixel v2.ttf" id="4_u2wf5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4i6y1"]
+atlas = ExtResource("2_j6rbo")
+region = Rect2(49.0256, 96.9629, 30.1644, 30.2051)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfdaa"]
+atlas = ExtResource("3_m0ycq")
+region = Rect2(0, 352.2, 159.92, 48.116)
+
+[node name="ToolTip" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i7h52")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 127.0
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_4i6y1")
+
+[node name="TextureRect" type="NinePatchRect" parent="MarginContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_yfdaa")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 15
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_u2wf5")
+text = "TITLE"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Description tha
+"
+fit_content = true
+autowrap_mode = 2

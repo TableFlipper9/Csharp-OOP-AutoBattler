@@ -37,12 +37,23 @@ public partial class UnitGridControl : MarginContainer
 
 	public bool mouseIsInRange = false;
 	public bool mouseIsLoaded = false;
-	public UnitFieldIcon indexOfMouse ;
-	public UnitFieldIcon indexOfUnit ;
+	public UnitFieldIcon indexOfMouse = null;
+	public UnitFieldIcon indexOfUnit = null;
+	public bool loadFromOutside = false;
+
+	public void LoadMouse(bool load,UnitFieldIcon icon,bool x)
+	{
+		mouseIsInRange = load;
+		indexOfMouse = icon;
+		loadFromOutside = x;
+	}
+
+	[Signal]
+	public delegate void IfSwapEventHandler(UnitFieldIcon index, bool mouseIsLoaded);
 
 	public void OnMousePressed(UnitFieldIcon self)
 	{
-		GD.Print("OO" ,self.indexInField);
+		//GD.Print("OO" ,self.indexInField);
 		this.indexOfUnit = self; 
 		mouseIsLoaded = true;
 	}
@@ -50,30 +61,49 @@ public partial class UnitGridControl : MarginContainer
 	{
 		this.indexOfMouse = self;
 		mouseIsInRange = true;
+		EmitSignal(UnitGridControl.SignalName.IfSwap, this.indexOfMouse, mouseIsInRange);
 	}
 
 	new public void MouseExited()
 	{
 		mouseIsInRange = false;
+		EmitSignal(UnitGridControl.SignalName.IfSwap, (UnitFieldIcon)null, false);
+	}
+
+	public void UnSelect()
+	{
+		selectedIcon.Hide();
 	}
 
 	[Signal]
 	public delegate void UpdateAfterSwapEventHandler(int index,int index2);
 
+	[Signal]
+	public delegate void SwapBetweenFieldsEventHandler(int index, int index2);
+
+	[Signal]
+	public delegate void SelectedEventHandler(int index);
+
 	public void OnMouseRelease()
 	{
-		GD.Print("PP", this.indexOfMouse.indexInField);
-		GD.Print((units[this.indexOfMouse.indexInField].type));
-		if (mouseIsLoaded && mouseIsInRange){
-			if (this.indexOfMouse == this.indexOfUnit){
-				selectedIcon.SetSize(indexOfMouse.GlobalPosition, new Vector2((float)0.48,(float)0.52));
+		//GD.Print("PP", this.indexOfMouse.indexInField);
+		//GD.Print((units[this.indexOfMouse.indexInField].type));
+		if (mouseIsLoaded && mouseIsInRange && Global.stateChanger == false){
+			if (this.indexOfMouse == this.indexOfUnit) {
+				selectedIcon.SetSize(indexOfMouse.GlobalPosition, new Vector2((float)0.48, (float)0.52));
 				selectedIcon.MoveHere();
+				EmitSignal(UnitGridControl.SignalName.Selected, indexOfMouse.indexInField);
 			}
-			else{
+			else {
 				mouseIsInRange = false;
 				mouseIsLoaded = false;
 				Swap(indexOfMouse, indexOfUnit);
-				EmitSignal(UnitGridControl.SignalName.UpdateAfterSwap, this.indexOfMouse.indexInField, this.indexOfUnit.indexInField);
+				if (loadFromOutside){
+					EmitSignal(UnitGridControl.SignalName.SwapBetweenFields, this.indexOfMouse.indexInField, this.indexOfUnit.indexInField);
+				}
+				else{ 
+					EmitSignal(UnitGridControl.SignalName.UpdateAfterSwap, this.indexOfMouse.indexInField, this.indexOfUnit.indexInField);
+				}
 			}
 		}
 	}

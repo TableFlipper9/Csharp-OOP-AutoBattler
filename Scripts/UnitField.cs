@@ -12,6 +12,7 @@ public partial class UnitField : Node
 	public List<Vector2> locations = new List<Vector2>();
 
 	public bool isHero;
+	public bool isEmpty =  true;
 
 	public struct parcel
 	{
@@ -23,9 +24,20 @@ public partial class UnitField : Node
 	public parcel fieldSize;
 
 	public UnitField()
+	{}
+
+	public bool CheckFieldEmpty()
 	{
-		capacity = 1;
-		level = 0;
+		for (int i = 0; i < units.Count; i++)
+		{
+			if (units[i] != null)
+			{
+				isEmpty = false;
+				return false;
+			}
+		}
+		isEmpty = true;
+		return true;
 	}
 
 	public virtual void Init(int level,Vector2 center)
@@ -35,13 +47,22 @@ public partial class UnitField : Node
 		this.fieldSize.xR = (int)center.X - 100;
 		this.fieldSize.yR = (int)center.Y - 200;
 		this.level = level;
-		this.capacity = level + 1;
+		this.capacity = level;
 		this.isHero = true;
 	}
 
 	public virtual void LevelUp(int capacity)
 	{
 		this.capacity = capacity;
+	}
+
+	public void Attack()
+	{
+		foreach (var unit in units){
+			if(unit != null) {
+				unit.EmitSignal(Unit.SignalName.SearchNewOpponent, unit, unit.prio);
+			}
+		}
 	}
 
 	public void calculateInRowLocations()

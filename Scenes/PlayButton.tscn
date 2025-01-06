@@ -1,0 +1,130 @@
+[gd_scene load_steps=10 format=3 uid="uid://i0bljvagh2rq"]
+
+[ext_resource type="Script" path="res://Scripts/PlayButton.cs" id="1_k0hor"]
+[ext_resource type="Texture2D" uid="uid://yvcegkdgwqes" path="res://GUI/Complete_UI_Essential_Pack_Free/Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_Button02a_4.png" id="2_h5jhd"]
+[ext_resource type="Texture2D" uid="uid://k4r83n8ljxhj" path="res://GUI/Complete_UI_Essential_Pack_Free/Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_Button02a_3.png" id="4_2rfij"]
+[ext_resource type="FontFile" uid="uid://bhsgy5x3rcx1n" path="res://GUI/MinimalPixel v2.ttf" id="5_bxnij"]
+
+[sub_resource type="Animation" id="Animation_1dojw"]
+resource_name = "HSOOW"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 100), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ukyvt"]
+resource_name = "PLAY"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Label:theme_override_colors/font_shadow_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.566667, 1, 1.63333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.893574, 0.238362, 1, 1), Color(0.694514, 0.598633, 0.125502, 1), Color(0.144134, 0.711397, 0.415647, 1), Color(0.441123, 0.57007, 0.997973, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tmh81"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Label:theme_override_colors/font_shadow_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.893574, 0.238362, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nsxsp"]
+resource_name = "WOOSH"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ra0d5"]
+_data = {
+"HSOOW": SubResource("Animation_1dojw"),
+"PLAY": SubResource("Animation_ukyvt"),
+"RESET": SubResource("Animation_tmh81"),
+"WOOSH": SubResource("Animation_nsxsp")
+}
+
+[node name="PlayButton" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2000.0
+offset_right = 2000.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k0hor")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ra0d5")
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 32.0
+
+[node name="Button" type="TextureButton" parent="MarginContainer"]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("2_h5jhd")
+texture_hover = ExtResource("4_2rfij")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.893574, 0.238362, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0.504879, 0.535147, 1)
+theme_override_fonts/font = ExtResource("5_bxnij")
+text = " PLAY!"
+horizontal_alignment = 1
+
+[connection signal="toggled" from="MarginContainer/Button" to="." method="OnButtonToggle"]

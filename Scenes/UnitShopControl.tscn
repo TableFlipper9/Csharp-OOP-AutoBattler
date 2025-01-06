@@ -1,15 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://cx3b8inyo0ihh"]
+[gd_scene load_steps=7 format=3 uid="uid://cx3b8inyo0ihh"]
 
 [ext_resource type="Texture2D" uid="uid://b4utcxiesg16a" path="res://GUI/GUI.png" id="1_103iw"]
 [ext_resource type="Script" path="res://Scripts/UnitShopControl.cs" id="1_o5756"]
+[ext_resource type="Texture2D" uid="uid://b667381ax6xt5" path="res://GUI/GUI_4x.png" id="3_8fibh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vhygq"]
 atlas = ExtResource("1_103iw")
 region = Rect2(112, 256, 80, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nvn4r"]
-atlas = ExtResource("1_103iw")
-region = Rect2(48.1215, 91.6637, 31.7739, 39.2538)
+atlas = ExtResource("3_8fibh")
+region = Rect2(384, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v6sky"]
 atlas = ExtResource("1_103iw")
@@ -38,7 +39,7 @@ texture = SubResource("AtlasTexture_vhygq")
 [node name="TextureRect2" type="NinePatchRect" parent="OpenedTab"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_nvn4r")
-region_rect = Rect2(-1.07309, 1.21867, 34.3051, 36.7813)
+region_rect = Rect2(-8.95702, -15.2869, 114.023, 124.091)
 
 [node name="GridContainer" type="GridContainer" parent="OpenedTab"]
 custom_minimum_size = Vector2(240, 100)

@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcq521r44qu4r"]
+[gd_scene load_steps=4 format=3 uid="uid://dcq521r44qu4r"]
 
-[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="1_7sdna"]
 [ext_resource type="PackedScene" uid="uid://chk1rky4w8sbq" path="res://Scenes/HealthBar.tscn" id="2_mbeev"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_um6xv"]
@@ -8,7 +7,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b85iw"]
 
 [node name="Enemy" type="CharacterBody2D"]
-script = ExtResource("1_7sdna")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(4, 4)

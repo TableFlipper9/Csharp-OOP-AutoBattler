@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://7kiv7wdufrpr"]
+
+[ext_resource type="Script" path="res://Scripts/SelectedAnimation.cs" id="1_5s3ut"]
+[ext_resource type="Texture2D" uid="uid://bxe477n4klx60" path="res://GUI/Complete_UI_Essential_Pack_Free/Complete_UI_Essential_Pack_Free/01_Flat_Theme/Spritesheets/Spritesheet_UI_Flat_Animated.png" id="2_3gbe6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1e0o"]
+atlas = ExtResource("2_3gbe6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmsso"]
+atlas = ExtResource("2_3gbe6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7irc5"]
+atlas = ExtResource("2_3gbe6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsx7e"]
+atlas = ExtResource("2_3gbe6")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slaeb"]
+atlas = ExtResource("2_3gbe6")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="Animation" id="Animation_ovwbf"]
+resource_name = "Focus"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [SubResource("AtlasTexture_mmsso"), SubResource("AtlasTexture_7irc5"), SubResource("AtlasTexture_tsx7e"), SubResource("AtlasTexture_slaeb")]
+}
+
+[sub_resource type="Animation" id="Animation_yhjbk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("AtlasTexture_d1e0o")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jo2li"]
+_data = {
+"Focus": SubResource("Animation_ovwbf"),
+"RESET": SubResource("Animation_yhjbk")
+}
+
+[node name="SelctedAnimation" type="Node2D"]
+script = ExtResource("1_5s3ut")
+
+[node name="TextureRect" type="NinePatchRect" parent="."]
+offset_right = 44.0
+offset_bottom = 44.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_d1e0o")
+region_rect = Rect2(0, 0, 32, 32)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jo2li")
+}

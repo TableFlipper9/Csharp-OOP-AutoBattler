@@ -68,8 +68,8 @@ alignment = 1
 [node name="Label" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.529537, 5.5591e-05, 0.449464, 1)
+theme_override_colors/font_outline_color = Color(1, 0.45515, 0.251454, 1)
 theme_override_fonts/font = ExtResource("5_y47wi")
 theme_override_font_sizes/font_size = 9
 text = "Level UP!"

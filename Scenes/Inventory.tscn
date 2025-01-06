@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://b2bmmwcoxdd1w"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory.cs" id="1_0l8e3"]
+[ext_resource type="Texture2D" uid="uid://b4utcxiesg16a" path="res://GUI/GUI.png" id="2_wo8m5"]
+[ext_resource type="Texture2D" uid="uid://b667381ax6xt5" path="res://GUI/GUI_4x.png" id="3_6kx24"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8y67"]
+atlas = ExtResource("2_wo8m5")
+region = Rect2(112, 256, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7kio"]
+atlas = ExtResource("3_6kx24")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2e6tq"]
+atlas = ExtResource("2_wo8m5")
+region = Rect2(0, 0, 192, 304)
+
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0l8e3")
+
+[node name="OpenedTab" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 350.0
+offset_bottom = 176.0
+
+[node name="TextureRect" type="NinePatchRect" parent="OpenedTab"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_w8y67")
+
+[node name="TextureRect2" type="NinePatchRect" parent="OpenedTab"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_s7kio")
+region_rect = Rect2(-7.45874, -17.0024, 112.429, 124.558)
+
+[node name="MarginContainer" type="MarginContainer" parent="OpenedTab"]
+custom_minimum_size = Vector2(250, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="OpenedTab/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="OpenedTab/MarginContainer/ScrollContainer"]
+custom_minimum_size = Vector2(240, 100)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+columns = 4
+
+[node name="ClosedTab" type="NinePatchRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+offset_right = 349.0
+offset_bottom = 22.0
+texture = SubResource("AtlasTexture_2e6tq")
+region_rect = Rect2(111.995, 256.015, 80.0204, 6.03076)
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 348.0
+offset_bottom = 22.0
+toggle_mode = true
+flat = true
+
+[connection signal="toggled" from="Button" to="." method="OnButtonToggle"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://x8f5nwgf1ibp"]
+[gd_scene load_steps=6 format=3 uid="uid://x8f5nwgf1ibp"]
 
 [ext_resource type="Texture2D" uid="uid://b4utcxiesg16a" path="res://GUI/GUI.png" id="1_0jns7"]
 [ext_resource type="Script" path="res://Scripts/UnitFieldControl.cs" id="1_jfsf7"]
 [ext_resource type="PackedScene" uid="uid://c15pale320c0b" path="res://Scenes/UnitGridControl.tscn" id="3_fulle"]
+[ext_resource type="PackedScene" uid="uid://7kiv7wdufrpr" path="res://Scenes/SelectedAnimation.tscn" id="4_l7n0v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfjdq"]
 atlas = ExtResource("1_0jns7")
@@ -27,14 +28,14 @@ offset_bottom = 176.0
 texture = SubResource("AtlasTexture_qfjdq")
 region_rect = Rect2(112, 256, 80, 48)
 
-[node name="Back" parent="OpenedTab" instance=ExtResource("3_fulle")]
+[node name="Front" parent="OpenedTab" instance=ExtResource("3_fulle")]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 15.0
 offset_right = 180.0
 offset_bottom = 160.0
 
-[node name="Front" parent="OpenedTab" instance=ExtResource("3_fulle")]
+[node name="Back" parent="OpenedTab" instance=ExtResource("3_fulle")]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 15.0
@@ -56,5 +57,8 @@ offset_right = 367.0
 offset_bottom = 22.0
 toggle_mode = true
 flat = true
+
+[node name="SelectedAnimation" parent="." instance=ExtResource("4_l7n0v")]
+visible = false
 
 [connection signal="toggled" from="Close" to="." method="OnCloseToggle"]

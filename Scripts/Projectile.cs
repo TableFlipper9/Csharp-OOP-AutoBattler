@@ -9,10 +9,13 @@ public partial class Projectile : Area2D
 	private Sprite2D sprite;
 	private string ownerType;
 
+	private Unit enemy;
+
 	private Shape2D shape;
 	private Vector2 destination;
+	private Vector2 scale;
 
-	private int speed = 1000;
+	private int speed = 300;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -22,6 +25,7 @@ public partial class Projectile : Area2D
 			LookAt(destination);
 
 			if (GlobalPosition.DistanceTo(destination) < 10){
+				enemy.takeDamage(damage);
 				QueueFree();
 			}
 		}
@@ -29,12 +33,12 @@ public partial class Projectile : Area2D
 	public void OnBodyEntered(Node2D body)
 	{
 		switch (ownerType){
-			case "Archer" or "Executioner":
+			case "Archer" or "Executioner" or "Knight" or "Solder" or "Chaverly":
 				if (body is Hero hero){
 					hero.takeDamage(damage);
 				}
 				break;
-			case "GOBLIN" or "Healer":
+			case "Goblin" or "Healer" or "":
 				if (body is Enemy enemy){
 					enemy.takeDamage(damage);
 				}
@@ -43,23 +47,24 @@ public partial class Projectile : Area2D
 				break;
 		}
 	}
-	public void Init(Shape2D shape, int damage, Vector2 position, Vector2 destination, Vector2 scale)
+	public void Init(string ownerType, Shape2D shape, int damage, Vector2 position, Unit enemy, Vector2 animationScale, Vector2 hitBoxScale)
 	{
+		this.ownerType = ownerType;
+		this.enemy = enemy;
 		this.shape = shape;
 		this.damage = damage;
-		this.destination = destination;
+		this.destination = enemy.GlobalPosition;
 		this.GlobalPosition = position;
-		this.Scale = scale;
+		this.scale = hitBoxScale;
+		this.Scale = animationScale;
 	}
 	public override void _Ready()
 	{
 		collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 		sprite = GetNode<Sprite2D>("Sprite2D");
 		collisionShape.Shape = this.shape;
-		sprite.Texture = GD.Load<Texture2D>("res://Sprites/" + ownerType + ".tres");
+		collisionShape.Scale = this.scale;
+		sprite.Texture = GD.Load<Texture2D>("res://Animations/Ability/" + ownerType + ".png");
 	}
 
-	public override void _Process(double delta)
-	{
-	}
 }

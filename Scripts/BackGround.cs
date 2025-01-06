@@ -6,7 +6,7 @@ public partial class BackGround : ParallaxBackground
 	bool isMoving = false;
 	int speed = 1;
 
-	int destination = -1240;
+	int destination = -440;
 	public void Move()
 	{	
 		this.isMoving = true;
@@ -26,6 +26,7 @@ public partial class BackGround : ParallaxBackground
 				this.isMoving = false;
 				EmitSignal(BackGround.SignalName.StopMoving);
 				//this.ScrollBaseOffset = new Vector2(0,0);
+				destination -= 440;
 			}
 		}
 	}

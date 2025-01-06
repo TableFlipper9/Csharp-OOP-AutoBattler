@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://pmp05n71n2pk"]
+
+[ext_resource type="Script" path="res://Scripts/Healer.cs" id="1_6apfs"]
+[ext_resource type="PackedScene" uid="uid://chk1rky4w8sbq" path="res://Scenes/HealthBar.tscn" id="2_hmw6i"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_80g08"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b85iw"]
+
+[node name="Archer" type="CharacterBody2D"]
+script = ExtResource("1_6apfs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_80g08")
+animation = &"Attack"
+
+[node name="HealthBar" parent="." instance=ExtResource("2_hmw6i")]
+offset_left = -50.0
+offset_top = -65.0
+offset_right = -20.0
+offset_bottom = 86.0
+scale = Vector2(0.7, 0.7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_b85iw")
+one_way_collision = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimationFinished"]
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

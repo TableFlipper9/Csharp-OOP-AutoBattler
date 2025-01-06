@@ -10,7 +10,7 @@ public partial class LevelUpUnitButton : Control
 	public int purchasePrice = 0;
 	private bool buyLevel;
 	private bool buyPurchase;
-	private int level = 1;
+	public int level = 1;
 
 	private TextureRect icon;
 
@@ -30,7 +30,7 @@ public partial class LevelUpUnitButton : Control
 	public void ChangeIcon()
 	{
 		if(purchasePrice/2 <= Global.Gold){
-			icon.Texture = GD.Load<Texture2D>("res://Icons/Units/" + Global.heroNames[Global.heroStringMap[this.type]] + ".png");
+			icon.Texture = GD.Load<Texture2D>("res://Icons/Units/" + Global.heroNames[(int)type] + ".png");
 		}
 	}
 
@@ -39,22 +39,33 @@ public partial class LevelUpUnitButton : Control
 	[Signal]
 	public delegate void OnLevelUpEventHandler();
 
+
+	public void LevelUP(int level)
+	{
+		for (int i = 0; this.level < level; i++)
+		{
+			Global.heroLevels[(int)this.type]++;
+		}
+	}
 	public void OnLevelUPButtuonPressed()
 	{
-		GD.Print("PP ", Global.heroLevels[(int)this.type]);
-		if (Global.Gold > levelUPPrice){
-			Global.SpendGold(levelUPPrice);
-			EmitSignal(LevelUpUnitButton.SignalName.OnLevelUp);
-			CheckBuyable();
-			Global.SpendGold(levelUPPrice);
-			Global.heroLevels[(int)this.type]++;
-			GD.Print("OO ", Global.heroLevels[(int)this.type]);
+	   if( Global.heroLevels[(int)this.type] < 3){
+
+			if (Global.Gold > levelUPPrice){
+
+				Global.SpendGold(levelUPPrice);
+				Global.heroLevels[(int)this.type]++;
+				EmitSignal(LevelUpUnitButton.SignalName.OnLevelUp);
+				CheckBuyable();
+				levelUPPrice = Global.levelUpPrices[(int)this.type];
+				GD.Print("OO ", Global.heroLevels[(int)this.type]);
+			}
 		}
 	}
 
 	public void OnButtonPressed()
 	{
-		if (buyPurchase){
+		if (buyPurchase && Global.stateChanger == false){
 		   EmitSignal(LevelUpUnitButton.SignalName.OnPurchase, (int)this.type, this.purchasePrice);
 		   CheckBuyable() ;
 		}
@@ -62,17 +73,17 @@ public partial class LevelUpUnitButton : Control
 	public void Init(Global.HeroTypes type)
 	{
 		this.type = type;
-		this.levelUPPrice = Global.levelUpPrices[Global.heroStringMap[this.type]];
-		this.purchasePrice = Global.purchaseUpPrices[Global.heroStringMap[this.type]];
+		this.levelUPPrice = Global.levelUpPrices[(int)type];
+		this.purchasePrice = Global.purchaseUpPrices[(int)type];
 		CheckBuyable(); /// need to create globalsignal to update money
 	}
 	public override void _Ready()
 	{
 		icon = GetNode<TextureRect>("MarginContainer/TextureRect");
 	}
-
 	public override void _Process(double delta)
 	{
-
+		CheckBuyable();
+		ChangeIcon();
 	}
 }

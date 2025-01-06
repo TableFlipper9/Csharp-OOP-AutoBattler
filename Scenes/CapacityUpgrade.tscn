@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://jv0rgveu6sha"]
+
+[ext_resource type="Script" path="res://Scripts/CapacityUpgrade.cs" id="1_5xwts"]
+[ext_resource type="Texture2D" uid="uid://cqfpdfko6b7fu" path="res://GUI/Complete_UI_Essential_Pack_Free/Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_Bar10a.png" id="2_g16pq"]
+[ext_resource type="FontFile" uid="uid://bhsgy5x3rcx1n" path="res://GUI/MinimalPixel v2.ttf" id="3_hv4ft"]
+
+[node name="CapacityUpgrade" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5xwts")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 25.0
+texture = ExtResource("2_g16pq")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 25.0
+theme_override_fonts/font = ExtResource("3_hv4ft")
+text = "Front
+"
+flat = true
+
+[connection signal="mouse_entered" from="Button" to="." method="MouseEntered"]
+[connection signal="mouse_exited" from="Button" to="." method="MouseExited"]
+[connection signal="pressed" from="Button" to="." method="OnButtonPressed"]

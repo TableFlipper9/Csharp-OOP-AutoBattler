@@ -21,6 +21,7 @@ public partial class UnitShopControl : Control
 		AddUnit(Global.HeroTypes.Healer);
 		AddUnit(Global.HeroTypes.Chaverly);
 		AddUnit(Global.HeroTypes.Executioner);
+		AddUnit(Global.HeroTypes.Knight);
 	}
 	[Signal]
 	public delegate void PurchaseHeroEventHandler(int type, int price);

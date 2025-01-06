@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 public abstract partial class Unit : CharacterBody2D
 {
@@ -9,7 +10,7 @@ public abstract partial class Unit : CharacterBody2D
 	public int healthPercentage = 100;
 	public int maxCharge;
 	public int charge;
-	public bool lockOn = false;
+	public bool isDead = false;
 
 	public int level = 0;
 
@@ -38,7 +39,7 @@ public abstract partial class Unit : CharacterBody2D
 
 	public override void _Process(double delta)
 	{
-		if (isMoving == true && enemy != null) {
+		if (isMoving == true && enemy != null && IsInstanceValid(enemy)) {
 			moveToAttack(enemy.GlobalPosition);
 		}
 		CheckEnemyAlive();
@@ -62,7 +63,7 @@ public abstract partial class Unit : CharacterBody2D
 	{
 		Unit min = null;
 		foreach (Unit current in list) {
-			if (current != null) {
+			if (current != null ) {
 				if (min == null){
 					min = current;
 				}
@@ -77,19 +78,22 @@ public abstract partial class Unit : CharacterBody2D
 
 	public void playWalk()
 	{
+		if (isDead) return;
+		FlipHorizontal(true);
 		sprite.Play("Walk");
 	}
 
 	public void playIdle()
 	{
+		if(isDead) return;
 		sprite.Play("Idle");
 	}
 
 	public void moveHere(Vector2 destonation)
 	{
+		if (isDead) return;
 		isMoving = true;
 		this.target = destonation;
-		FlipHorizontal(target.X < this.GlobalPosition.X);
 	}
 
 	public bool isAttacking = false;
@@ -115,10 +119,12 @@ public abstract partial class Unit : CharacterBody2D
 		this.target.X = enemyGlobalPosition.X + range * ((this.GlobalPosition.X - enemyGlobalPosition.X) / distance);
 		this.target.Y = enemyGlobalPosition.Y + range * ((this.GlobalPosition.Y - enemyGlobalPosition.Y) / distance);
 		isMoving = true;
+		//FlipHorizontal(target.X < this.GlobalPosition.X);
 	}
 
 	public void takeDamage(int damage)
 	{
+		if (isDead) return;
 		health -= damage;
 
 		var de = GD.Load<PackedScene>("res://Scenes/DamageEffect.tscn").Instantiate<DamageEffect>();
@@ -142,32 +148,38 @@ public abstract partial class Unit : CharacterBody2D
 	}
 
 	[Signal]
-	public delegate void KilledOpponentEventHandler(int index);
+	public delegate void SearchNewOpponentEventHandler(Unit self,int prio);
+
+	public int prio = 0;
 	public void CheckEnemyAlive()
 	{
+		if (isDead) return;
 		if (enemy != null){
 			if (enemy.health <= 0){
-				EmitSignal(Unit.SignalName.KilledOpponent, indexInList);
-				//enemy = null;
+				EmitSignal(Unit.SignalName.SearchNewOpponent, this,prio);
 			}
 		}
 	}
 
-	public void die()
+	public virtual void die()
 	{
+		EmitSignal(Unit.SignalName.UnitDeath, indexInList);
 		attackTimer.Stop();
 		isAttacking = false;
 		isMoving = false;
 		healthBar.Visible = false;
+		isDead = true;
 		sprite.Play("Death");
-		EmitSignal(Unit.SignalName.UnitDeath, indexInList);
 	}
 
 	public Vector2 locationInrow;
 	public void updateInRowLocation(Vector2 location)
 	{
+		if (isDead) return;
 		this.locationInrow = location;
+		FlipHorizontal(location.X < this.GlobalPosition.X);
 		moveHere(locationInrow);
 	}
 	public abstract void Attack();
+	public virtual void SaveHero(Godot.FileAccess file) { }
 }

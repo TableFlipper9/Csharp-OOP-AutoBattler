@@ -1,17 +1,33 @@
-[gd_scene load_steps=9 format=3 uid="uid://dyx8o2yxtjxl4"]
+[gd_scene load_steps=12 format=3 uid="uid://dyx8o2yxtjxl4"]
 
 [ext_resource type="Script" path="res://Scripts/Main.cs" id="1_3bx0i"]
 [ext_resource type="PackedScene" uid="uid://cx3b8inyo0ihh" path="res://Scenes/UnitShopControl.tscn" id="2_mcgwl"]
+[ext_resource type="PackedScene" uid="uid://i0bljvagh2rq" path="res://Scenes/PlayButton.tscn" id="2_p07dh"]
 [ext_resource type="PackedScene" uid="uid://bw8eqjgx0nlks" path="res://Scenes/Field.tscn" id="3_yew8b"]
 [ext_resource type="Script" path="res://Scripts/HeroUnitField.cs" id="4_pn6sw"]
 [ext_resource type="Script" path="res://Scripts/EnemyUnitField.cs" id="5_5luac"]
 [ext_resource type="PackedScene" uid="uid://dah5jkkp0q1mn" path="res://Scenes/BackGround.tscn" id="6_e5ooa"]
 [ext_resource type="PackedScene" uid="uid://x8f5nwgf1ibp" path="res://Scenes/UnitFieldControl.tscn" id="7_5aes5"]
 [ext_resource type="PackedScene" uid="uid://dluo8yr1ie576" path="res://Scenes/GoldUI.tscn" id="8_trjcv"]
+[ext_resource type="PackedScene" uid="uid://b2bmmwcoxdd1w" path="res://Scenes/Inventory.tscn" id="10_m5ict"]
+[ext_resource type="PackedScene" uid="uid://jv0rgveu6sha" path="res://Scenes/CapacityUpgrade.tscn" id="11_84vyy"]
 
 [node name="Control" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_3bx0i")
+
+[node name="PlayButton" parent="." instance=ExtResource("2_p07dh")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 489.0
+offset_top = 530.0
+offset_right = 489.0
+offset_bottom = 530.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(3, 3)
+metadata/_edit_use_anchors_ = true
 
 [node name="UnitShopControl" parent="." instance=ExtResource("2_mcgwl")]
 offset_left = 4.0
@@ -19,11 +35,23 @@ offset_top = 2.0
 offset_right = 4.0
 offset_bottom = 2.0
 
+[node name="HeroBackField" parent="." instance=ExtResource("3_yew8b")]
+y_sort_enabled = true
+position = Vector2(-54, 313)
+scale = Vector2(0.8, 0.8)
+script = ExtResource("4_pn6sw")
+
 [node name="HeroFrontField" parent="." instance=ExtResource("3_yew8b")]
 y_sort_enabled = true
 position = Vector2(-54, 313)
 scale = Vector2(0.8, 0.8)
 script = ExtResource("4_pn6sw")
+
+[node name="EnemyBackField" parent="." instance=ExtResource("3_yew8b")]
+y_sort_enabled = true
+position = Vector2(1209, 320)
+scale = Vector2(0.8, 0.8)
+script = ExtResource("5_5luac")
 
 [node name="EnemyFrontField" parent="." instance=ExtResource("3_yew8b")]
 y_sort_enabled = true
@@ -44,3 +72,26 @@ offset_left = 1033.0
 offset_top = 5.0
 offset_right = 1033.0
 offset_bottom = 5.0
+
+[node name="Inventory" parent="." instance=ExtResource("10_m5ict")]
+offset_left = 727.0
+offset_top = 3.0
+offset_right = 727.0
+offset_bottom = 3.0
+
+[node name="FrontUpgrade" parent="." instance=ExtResource("11_84vyy")]
+offset_left = 573.0
+offset_top = 165.0
+offset_right = 573.0
+offset_bottom = 165.0
+
+[node name="BackUpgrade" parent="." instance=ExtResource("11_84vyy")]
+offset_left = 406.0
+offset_top = 165.0
+offset_right = 406.0
+offset_bottom = 165.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

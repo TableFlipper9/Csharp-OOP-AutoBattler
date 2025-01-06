@@ -4,10 +4,7 @@ using System;
 public partial class HeroUnitField : UnitField
 {
 	public HeroUnitField()
-	{
-		capacity = 1;
-		level = 0;
-	}
+	{}
 
 	[Signal]
 	public delegate void UpdateUnitIconEventHandler(int index, string type);
@@ -18,10 +15,6 @@ public partial class HeroUnitField : UnitField
 	public int nextavalibleLocation;
 	public bool HasAvalibleSpace()
 	{
-		if (units.Count < capacity) {
-			nextavalibleLocation = units.Count;
-			return true;
-		}
 		for (int i = 0; i < units.Count; i++) {
 			if (units[i] == null) {
 				nextavalibleLocation = i;
@@ -33,31 +26,45 @@ public partial class HeroUnitField : UnitField
 
 	public void AddNewUnit(Hero newUnit)
 	{
-		if (nextavalibleLocation == units.Count)
-			units.Add(newUnit);
-		else
-			units[nextavalibleLocation] = newUnit;
+		isEmpty = false;
+		units[nextavalibleLocation] = newUnit;
 
 		AddChild(newUnit);
 		newUnit.SetIndex(nextavalibleLocation);
 		newUnit.UnitDeath += this.UnitDeath;
-		EmitSignal(HeroUnitField.SignalName.UpdateUnitIcon, newUnit.indexInList, Global.heroNames[Global.heroStringMap[newUnit.type]]);
+		EmitSignal(HeroUnitField.SignalName.UpdateUnitIcon, newUnit.indexInList, Global.heroNames[(int)newUnit.type]);
 	}
 	public void UpdateLocations()
 	{
-		for (int i = 0; i < this.locations.Count; i++)
-		{
-			locations.Remove(this.locations[i]);
-		}
+		locations.Clear();
 
 		calculateInRowLocations();
 
-		for (int i = 0; i < this.units.Count; i++)
+		for (int i = 0; i < units.Count; i++)
 		{
 			if (this.units[i] != null)
 			{
-				this.units[i].updateInRowLocation(this.locations[i]);
+				this.units[i].updateInRowLocation(this.locations[units[i].indexInList]);
 			}
+		}
+	}
+
+	[Signal]
+	public delegate void AllHerosDeafetedEventHandler();
+
+	public void Disconnect(int index)
+	{
+		if (units[index] != null)
+			units[index].UnitDeath -= this.UnitDeath; 
+	}
+
+	public void Connect(Unit unit, int index)
+	{
+		units[index] = unit;
+		if (units[index] != null){
+			this.units[index].SetIndex(index);
+			units[index].updateInRowLocation(this.locations[index]);
+			units[index].UnitDeath += this.UnitDeath;
 		}
 	}
 
@@ -96,7 +103,23 @@ public partial class HeroUnitField : UnitField
 	public override void UnitDeath(int index)
 	{
 		base.UnitDeath(index);
-		EmitSignal(HeroUnitField.SignalName.UpdateUnitIcon, index, (string)null);
+		EmitSignal(HeroUnitField.SignalName.UpdateUnitIcon, index, "Empty");
+
+		if (CheckFieldEmpty())
+		{
+			EmitSignal(HeroUnitField.SignalName.AllHerosDeafeted);
+		}
+	}
+
+	public void Upgrade()
+	{
+		if (Global.SpendGold(Global.capacityPrices[this.level]))
+		{
+			this.level++;
+			int cap = Global.capacitiUpgrades[this.level];
+			LevelUp(cap);
+		}
+		else GD.Print("NoMoneyForUpgarde");
 	}
 
 	public override void LevelUp(int capacity)
@@ -111,10 +134,10 @@ public partial class HeroUnitField : UnitField
 
 	public void SoldUnit(int index)
 	{
-		units[index].die();
+		if(units[index] != null)
+			units[index].die();
 		if (units[index] is Hero){
-			GD.Print("II");
-			//Global.GainGold(Global.heroSellvalues[(int)units[index].type]);
+			Global.GainGold(10);
 		}
 	}
 	public override void _Ready()

@@ -1,9 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bxohdcs5yweaw"]
 
 [ext_resource type="Script" path="res://Scripts/AreaAttack.cs" id="1_e5l2q"]
-[ext_resource type="SpriteFrames" uid="uid://bddageo3wan6b" path="res://Animations/Effects/Archer.tres" id="2_esbf5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_43p18"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_03gt8"]
 
 [node name="AreaOfEffect" type="Area2D"]
 scale = Vector2(5, 5)
@@ -14,8 +15,7 @@ scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_43p18")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = ExtResource("2_esbf5")
-animation = &"Effect"
+sprite_frames = SubResource("SpriteFrames_03gt8")
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnBodyExited"]

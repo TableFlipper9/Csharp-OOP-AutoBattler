@@ -13,13 +13,14 @@ public partial class SelectedIcon : Control
 	}
 	public void SetSize(Vector2 location, Vector2 size)
 	{
+		this.Visible = true;
 		this.GlobalPosition = location;
 		this.Scale = size;
 	}
 	public void MoveHere()
 	{
-		player.Play("Idle");
 		this.Visible = true;
+		player.Play("Idle");
 	}
 
 	public void TurnOff()

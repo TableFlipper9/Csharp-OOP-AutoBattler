@@ -26,16 +26,16 @@ public partial class AreaAttack : Area2D
 	}
 	public void OnAnimationFinished()
 	{
-		foreach (var unit in unitList){
+		foreach (var unit in GetOverlappingBodies()){
 			switch (ownerType){
-				case "Archer" or "Executioner":
-					if (unit is Enemy enemy){
-						enemy.takeDamage(damage);
-					}
-					break;
-				case "GOBLIN" or "Healer":
+				case "Goblin" or "Healer":
 					if (unit is Hero hero){
 						hero.takeDamage(damage);
+					}
+					break;
+				case "Archer" or "Executioner" or "Knight" or "Solder" or "Chaverly":
+					if (unit is Enemy enemy){
+						enemy.takeDamage(damage);
 					}
 					break;
 				default:
@@ -61,7 +61,7 @@ public partial class AreaAttack : Area2D
 		collisionShape.Shape = this.shape;
 		collisionShape.Scale = this.scale;
 
-		//animatedSprite.SpriteFrames = GD.Load<SpriteFrames>("res://Animations/Effects/"+ ownerType +".tres");
+		animatedSprite.SpriteFrames = GD.Load<SpriteFrames>("res://Animations/Effects/"+ ownerType +".tres");
 		animatedSprite.Play("Effect");
 	}
 

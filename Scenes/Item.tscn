@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://b4gn5hgoujgxg"]
+
+[ext_resource type="Script" path="res://Scripts/Item.cs" id="1_8023l"]
+[ext_resource type="Texture2D" uid="uid://b667381ax6xt5" path="res://GUI/GUI_4x.png" id="2_lxac2"]
+[ext_resource type="Texture2D" uid="uid://dowl8flqjix4o" path="res://Icons/FreePixelFood/Apple.png" id="3_fpirq"]
+[ext_resource type="Texture2D" uid="uid://xwrkea81ornj" path="res://GUI/Complete_UI_Essential_Pack_Free/Complete_UI_Essential_Pack_Free/01_Flat_Theme/Spritesheets/Spritesheet_UI_Flat.png" id="4_xd4v3"]
+[ext_resource type="FontFile" uid="uid://bhsgy5x3rcx1n" path="res://GUI/MinimalPixel v2.ttf" id="5_ppfxc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqvb6"]
+atlas = ExtResource("2_lxac2")
+region = Rect2(387.793, 195.851, 56.5837, 56.3661)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36ufh"]
+atlas = ExtResource("4_xd4v3")
+region = Rect2(287.937, 133.584, 64.3391, 20.5903)
+
+[node name="Item" type="Control"]
+custom_minimum_size = Vector2(59, 59)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 59.0
+offset_bottom = 59.0
+script = ExtResource("1_8023l")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 57.0
+offset_bottom = 49.0
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_mqvb6")
+expand_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_fpirq")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_top = 44.0
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_36ufh")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.278583, 0.496794, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_ppfxc")
+theme_override_font_sizes/font_size = 9
+text = "Apple"
+horizontal_alignment = 1
+
+[connection signal="mouse_entered" from="MarginContainer" to="." method="MouseEntered"]
+[connection signal="mouse_exited" from="MarginContainer" to="." method="MouseExited"]
+[connection signal="gui_input" from="MarginContainer/TextureRect" to="." method="OnItemPressed"]

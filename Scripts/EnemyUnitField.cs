@@ -3,7 +3,7 @@ using System;
 
 public partial class EnemyUnitField : UnitField
 {
-	public bool isEmpty = false;
+	//public bool isEmpty = false;
 	public EnemyUnitField()
 	{
 		capacity = 1;
@@ -17,23 +17,44 @@ public partial class EnemyUnitField : UnitField
 		}
 	}
 
-	private void CheckFieldEmpty()
+	[Signal]
+	public delegate void FindNewEnemyEventHandler(Unit unit,int prio);
+
+	public void SendSignal(Unit uni,int prio)
 	{
-		isEmpty = true;
-		for (int i = 0; i < units.Count; i++){
-			if (units[i] != null){
-				isEmpty = false;
-			}
-		}
+		EmitSignal(EnemyUnitField.SignalName.FindNewEnemy,uni,prio);
 	}
-	public void CreateNewField()
+
+	public void CreateNewFrontField()
 	{
-		this.LevelUp(Global.enemyStageCapacitiesFront[0]);
+		this.LevelUp(Global.enemyStageCapacitiesFront[Global.Stage]);
 		this.calculateInRowLocations();
 
-		for (int i = 0; i < 3/*Global.FrontEnemyStages[0].Length*/; i++){
-			var newUnit = GD.Load<PackedScene>("res://Scenes/Enemy.tscn").Instantiate<Enemy>();
-			Global.StageEnemy enemy = Global.FrontEnemyStages[0][i];
+		for (int i = 0; i < Global.FrontEnemyStages[Global.Stage].Length; i++){
+			var newUnit = GD.Load<PackedScene>("res://Scenes/Goblin.tscn").Instantiate<Enemy>();
+			Global.StageEnemy enemy = Global.FrontEnemyStages[Global.Stage][i];
+			newUnit.SearchNewOpponent += this.SendSignal;
+			isEmpty = false;
+
+			newUnit.Init(enemy.level, enemy.type, locations[enemy.index]);
+			units[i] = newUnit;
+			newUnit.SetIndex(enemy.index);
+			newUnit.UnitDeath += this.UnitDeath;
+			AddChild(newUnit);
+		}
+	}
+
+	public void CreateNewBackField()
+	{
+		this.LevelUp(Global.enemyStageCapacitiesBack[Global.Stage]);
+		this.calculateInRowLocations();
+
+		for (int i = 0; i < Global.BackEnemyStages[Global.Stage].Length; i++)
+		{
+			var newUnit = GD.Load<PackedScene>("res://Scenes/Goblin.tscn").Instantiate<Goblin>();
+			Global.StageEnemy enemy = Global.BackEnemyStages[Global.Stage][i];
+			newUnit.SearchNewOpponent += this.SendSignal;
+			isEmpty = false;
 
 			newUnit.Init(enemy.level, enemy.type, locations[enemy.index]);
 			units[i] = newUnit;
@@ -48,8 +69,7 @@ public partial class EnemyUnitField : UnitField
 	public override void UnitDeath(int index)
 	{
 		base.UnitDeath(index);
-		CheckFieldEmpty();
-		if (isEmpty){
+		if (CheckFieldEmpty()){
 			EmitSignal(EnemyUnitField.SignalName.AllEnemiesDeafeted);
 		}
 	}

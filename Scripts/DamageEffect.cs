@@ -11,7 +11,14 @@ public partial class DamageEffect : Node2D
 	public void Init(int value, Vector2 Position)
 	{
 		//this.GlobalPosition = Position;
-		text = "- " + value;
+		if (value < 0)
+		{
+			text = "++" + (value - value *2);
+		}
+		else
+		{
+			text = "- " + value;
+		}
 		this.GlobalPosition -= new Vector2(rng.RandiRange(-20, 20), this.GlobalPosition.Y);
 	}
 

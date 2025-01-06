@@ -35,13 +35,14 @@ public abstract partial class Hero : Unit
 	public void LevelUp()
 	{
 		this.level = Global.heroLevels[(int)type];
-		this.maxHealth = Global.heroMaxHealth[Global.heroStringMap[type]][level];
-		this.damage.basicDamage = Global.heroDamage[Global.heroStringMap[type]][level][0];
-		this.damage.specialDamage = Global.heroDamage[Global.heroStringMap[type]][level][1];
-		this.damage.ultimateDamage = Global.heroDamage[Global.heroStringMap[type]][level][2];
-		this.chargeRate.basicCharge = Global.heroChargeRate[Global.heroStringMap[type]][level][0];
-		this.chargeRate.specialCharge = Global.heroChargeRate[Global.heroStringMap[type]][level][1];
-		this.chargeRate.ultimateCharge = Global.heroChargeRate[Global.heroStringMap[type]][level][2];
+		this.maxHealth = Global.heroMaxHealth[(int)type][level];
+		this.damage.basicDamage = Global.heroDamage[(int)type][level][0];
+		GD.Print(this.type, this.damage.basicDamage);
+		this.damage.specialDamage = Global.heroDamage[(int)type][level][1];
+		this.damage.ultimateDamage = Global.heroDamage[(int)type][level][2];
+		this.chargeRate.basicCharge = Global.heroChargeRate[(int)type][level][0];
+		this.chargeRate.specialCharge = Global.heroChargeRate[(int)type][level][1];
+		this.chargeRate.ultimateCharge = Global.heroChargeRate[(int)type][level][2];
 
 		this.health = (maxHealth * healthPercentage) / 100;
 		if (healthBar != null){
@@ -55,23 +56,25 @@ public abstract partial class Hero : Unit
 		switch (dir)
 		{
 			case true:
-				this.Scale = new Vector2(-1, this.Scale.Y);
+				this.sprite.Scale *= new Vector2(-1, 1);
+				this.healthBar.Scale *= new Vector2(-1, 1);
 				break;
 			case false:
-				this.Scale = new Vector2(1, this.Scale.Y);
+				this.sprite.Scale *= new Vector2(1, 1);
+				this.healthBar.Scale *= new Vector2(1, 1);
 				break;
 		}
 	}
 
 	public void Init(Global.HeroTypes type, Vector2 locationInField)
 	{
-		this.level = Global.heroLevels[Global.heroStringMap[type]];
-		this.maxCharge = Global.heroMaxCharge[Global.heroStringMap[type]];
+		this.type = type;
+		this.level = Global.heroLevels[(int)type];
+		this.maxCharge = Global.heroMaxCharge[(int)type];
 		this.LevelUp();
 
 		isMoving = true;
 		locationInrow = locationInField; //new Vector2(200, 600);
-		this.type = type;
 	}
 
 	public override void _Ready()
@@ -135,7 +138,62 @@ public abstract partial class Hero : Unit
 		}
 	}
 
+	public override void die()
+	{
+		base.die();
+		if (this == Global.currentlySelectedHero){
+			Global.currentlySelectedHero = null;
+		}
+	}
+
+	public void UploadData(Global.HeroSave load)
+	{
+		for (int i = this.level; i < load.level; i++)
+		{
+			LevelUp();
+		}
+		this.damage.basicDamage = load.damage;
+		this.health = load.health;
+		this.maxHealth = load.maxHealth;
+		this.charge = load.charge;
+
+		healthBar.ChangeMax(maxHealth, maxCharge);
+		healthBar.ChangeValue(health, charge);
+
+		healthPercentage = (maxHealth / 100) * health;
+	}
+
+	public void IncreaseHP(int hp)
+	{
+		GD.Print(health);
+		this.health += hp;
+		GD.Print(health);
+		healthPercentage = (maxHealth / 100) * health;
+		healthBar.ChangeMax(maxHealth, maxCharge);
+		healthBar.ChangeValue(health, charge);
+	}
+
+	public void IncreaseDamage(int damage)
+	{
+		GD.Print("FFFF");
+		this.damage.basicDamage += damage;
+	}
+
+	public void IncreaseMaxHP(int maxHP)
+	{
+		GD.Print("FFFF");
+		this.maxHealth += maxHP;
+		this.health = (maxHealth * healthPercentage) / 100;
+		healthBar.ChangeMax(maxHealth, maxCharge);
+		healthBar.ChangeValue(health, charge);
+	}
+
 	public abstract void BasicAttack();
 	public abstract void ChargeAttack();
 	public abstract void UltimateAttack();
+
+	public override void SaveHero(Godot.FileAccess file)
+	{
+		file.StoreString("" + health + "," + maxHealth + "," + (int)this.type + "," + this.level + "," + this.damage.basicDamage + "," + this.charge);
+	}
 }
