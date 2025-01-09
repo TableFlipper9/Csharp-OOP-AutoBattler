@@ -60,6 +60,7 @@ public partial class HeroUnitField : UnitField
 
 	public void Connect(Unit unit, int index)
 	{
+		isEmpty = false;
 		units[index] = unit;
 		if (units[index] != null){
 			this.units[index].SetIndex(index);
