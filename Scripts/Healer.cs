@@ -14,7 +14,7 @@ public partial class Healer : Hero
 	}
 	public override void BasicAttack()
 	{
-		this.enemy.takeDamage(this.damage.basicDamage);
+		this.enemy.TakeDamage(this.damage.basicDamage);
 		this.charge += chargeRate.basicCharge;
 	}
 
@@ -38,7 +38,7 @@ public partial class Healer : Hero
 		{
 			enemy = null;
 			walk = true;
-			moveHere(locationInrow);
+			MoveHere(locationInrow);
 		}
 		else
 		{

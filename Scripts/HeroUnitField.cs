@@ -38,7 +38,7 @@ public partial class HeroUnitField : UnitField
 	{
 		locations.Clear();
 
-		calculateInRowLocations();
+		CalculateInRowLocations();
 
 		for (int i = 0; i < units.Count; i++)
 		{
@@ -73,7 +73,7 @@ public partial class HeroUnitField : UnitField
 	{
 		for (int i = 0; i < this.units.Count; i++) {
 			if (this.units[i] != null) {
-				this.units[i].playWalk();
+				this.units[i].PlayWalk();
 			}
 		}
 	}
@@ -81,7 +81,7 @@ public partial class HeroUnitField : UnitField
 	{
 		for (int i = 0; i < this.units.Count; i++) {
 			if (this.units[i] != null) {
-				this.units[i].playIdle();
+				this.units[i].PlayIdle();
 			}
 		}
 	}
@@ -145,7 +145,7 @@ public partial class HeroUnitField : UnitField
 	public void SoldUnit(int index)
 	{
 		if(units[index] != null)
-			units[index].die();
+			units[index].Die();
 		if (units[index] is Hero){
 			Global.GainGold(10);
 		}

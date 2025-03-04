@@ -76,7 +76,7 @@ public abstract partial class Enemy : Unit
 		healthBar.ChangeValue(health, charge);
 
 		attackTimer.Start();
-		moveHere(locationInrow);
+		MoveHere(locationInrow);
 	}
 
 	public override void Attack()

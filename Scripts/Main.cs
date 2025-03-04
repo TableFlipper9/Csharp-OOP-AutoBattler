@@ -320,8 +320,8 @@ public partial class Main : Node2D
 			{ oks = true; break; }
 		}
 
-		if (okp) guy.moveToAttack(guy.closestEnemy(primary).GlobalPosition);
-		else if (oks) guy.moveToAttack(guy.closestEnemy(secondary).GlobalPosition);
+		if (okp) guy.MoveToAttack(guy.ClosestEnemy(primary).GlobalPosition);
+		else if (oks) guy.MoveToAttack(guy.ClosestEnemy(secondary).GlobalPosition);
 		else{
 			guy.enemy = null;
 			guy.updateInRowLocation(guy.locationInrow);

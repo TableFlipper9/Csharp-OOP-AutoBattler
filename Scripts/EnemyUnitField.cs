@@ -28,7 +28,7 @@ public partial class EnemyUnitField : UnitField
 	public void CreateNewFrontField()
 	{
 		this.LevelUp(Global.enemyStageCapacitiesFront[Global.Stage]);
-		this.calculateInRowLocations();
+		this.CalculateInRowLocations();
 
 		for (int i = 0; i < Global.FrontEnemyStages[Global.Stage].Length; i++){
 			var newUnit = GD.Load<PackedScene>("res://Scenes/Goblin.tscn").Instantiate<Enemy>();
@@ -47,7 +47,7 @@ public partial class EnemyUnitField : UnitField
 	public void CreateNewBackField()
 	{
 		this.LevelUp(Global.enemyStageCapacitiesBack[Global.Stage]);
-		this.calculateInRowLocations();
+		this.CalculateInRowLocations();
 
 		for (int i = 0; i < Global.BackEnemyStages[Global.Stage].Length; i++)
 		{

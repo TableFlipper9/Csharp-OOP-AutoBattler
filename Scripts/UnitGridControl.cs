@@ -137,7 +137,7 @@ public partial class UnitGridControl : MarginContainer
 		unit.SellUnit += this.SellThisUnit;
 	}
 
-	public void update(int index, string type)
+	public void Update(int index, string type)
 	{
 		units[index].type = type;
 		units[index].updateIcon();

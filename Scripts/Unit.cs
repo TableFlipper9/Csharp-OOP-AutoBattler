@@ -14,14 +14,14 @@ public abstract partial class Unit : CharacterBody2D
 
 	public int level = 0;
 
-	public int Speed { get; set; } = 300;
+	public int speed { get; set; } = 300;
 
 	public Vector2 target = new Vector2(0, 0);
 	protected bool isMoving = false;
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Velocity = GlobalPosition.DirectionTo(target) * Speed;
+		Velocity = GlobalPosition.DirectionTo(target) * speed;
 		if (GlobalPosition.DistanceTo(target) > 5 && isMoving == true) {
 
 			MoveAndSlide();
@@ -40,7 +40,7 @@ public abstract partial class Unit : CharacterBody2D
 	public override void _Process(double delta)
 	{
 		if (isMoving == true && enemy != null && IsInstanceValid(enemy)) {
-			moveToAttack(enemy.GlobalPosition);
+			MoveToAttack(enemy.GlobalPosition);
 		}
 		CheckEnemyAlive();
 	}
@@ -59,7 +59,7 @@ public abstract partial class Unit : CharacterBody2D
 	public int range;
 
 	public Unit() { }
-	public Unit closestEnemy(List<Unit> list)
+	public Unit ClosestEnemy(List<Unit> list)
 	{
 		Unit min = null;
 		foreach (Unit current in list) {
@@ -76,20 +76,20 @@ public abstract partial class Unit : CharacterBody2D
 		return min;
 	}
 
-	public void playWalk()
+	public void PlayWalk()
 	{
 		if (isDead) return;
 		FlipHorizontal(true);
 		sprite.Play("Walk");
 	}
 
-	public void playIdle()
+	public void PlayIdle()
 	{
 		if(isDead) return;
 		sprite.Play("Idle");
 	}
 
-	public void moveHere(Vector2 destonation)
+	public void MoveHere(Vector2 destonation)
 	{
 		if (isDead) return;
 		isMoving = true;
@@ -112,7 +112,7 @@ public abstract partial class Unit : CharacterBody2D
 		}
 	}
 
-	public void moveToAttack(Vector2 enemyGlobalPosition)
+	public void MoveToAttack(Vector2 enemyGlobalPosition)
 	{
 		float distance = (float)Math.Sqrt(Math.Pow((this.GlobalPosition.X - enemyGlobalPosition.X), 2) + Math.Pow((this.GlobalPosition.Y - enemyGlobalPosition.Y), 2));
 		if (distance > range)
@@ -128,7 +128,7 @@ public abstract partial class Unit : CharacterBody2D
 		//FlipHorizontal(target.X < this.GlobalPosition.X);
 	}
 
-	public void takeDamage(int damage)
+	public void TakeDamage(int damage)
 	{
 		if (isDead) return;
 		health -= damage;
@@ -139,7 +139,7 @@ public abstract partial class Unit : CharacterBody2D
 
 		healthPercentage = (health / (float)maxHealth) * 100;
 		if (health <= 0) {
-			die();
+			Die();
 		}
 		healthBar.ChangeValue(health, charge);
 	}
@@ -167,7 +167,7 @@ public abstract partial class Unit : CharacterBody2D
 		}
 	}
 
-	public virtual void die()
+	public virtual void Die()
 	{
 		EmitSignal(Unit.SignalName.UnitDeath, indexInList);
 		attackTimer.Stop();
@@ -184,7 +184,7 @@ public abstract partial class Unit : CharacterBody2D
 		if (isDead) return;
 		this.locationInrow = location;
 		FlipHorizontal(location.X < this.GlobalPosition.X);
-		moveHere(locationInrow);
+		MoveHere(locationInrow);
 	}
 	public abstract void Attack();
 	public virtual void SaveHero(Godot.FileAccess file) { }

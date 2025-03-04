@@ -25,7 +25,7 @@ public partial class Projectile : Area2D
 			LookAt(destination);
 
 			if (GlobalPosition.DistanceTo(destination) < 10){
-				enemy.takeDamage(damage);
+				enemy.TakeDamage(damage);
 				QueueFree();
 			}
 		}
@@ -35,12 +35,12 @@ public partial class Projectile : Area2D
 		switch (ownerType){
 			case "Archer" or "Executioner" or "Knight" or "Solder" or "Chaverly":
 				if (body is Hero hero){
-					hero.takeDamage(damage);
+					hero.TakeDamage(damage);
 				}
 				break;
 			case "Goblin" or "Healer" or "":
 				if (body is Enemy enemy){
-					enemy.takeDamage(damage);
+					enemy.TakeDamage(damage);
 				}
 				break;
 			default:

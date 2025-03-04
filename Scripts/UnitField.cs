@@ -65,7 +65,7 @@ public partial class UnitField : Node
 		}
 	}
 
-	public void calculateInRowLocations()
+	public void CalculateInRowLocations()
 	{
 		int columnIndex = 0;
 		int pointsInColumn = 5;

@@ -20,13 +20,13 @@ public partial class Executioner : Hero
 		GetTree().Root.AddChild(aoe);
 		//this.charge += chargeRate.specialCharge;
 
-		this.enemy.takeDamage(this.damage.basicDamage);
+		this.enemy.TakeDamage(this.damage.basicDamage);
 		this.charge += chargeRate.basicCharge;
 	}
 
 	public override void ChargeAttack()
 	{
-		this.enemy.takeDamage(this.damage.specialDamage);
+		this.enemy.TakeDamage(this.damage.specialDamage);
 		this.charge += chargeRate.basicCharge;
 	}
 	public override void UltimateAttack()

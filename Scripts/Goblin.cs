@@ -14,7 +14,7 @@ public partial class Goblin : Enemy
 	}
 	public override void BasicAttack()
 	{
-		this.enemy.takeDamage(this.damage.basicDamage);
+		this.enemy.TakeDamage(this.damage.basicDamage);
 		this.charge += chargeRate.basicCharge;
 	}
 

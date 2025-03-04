@@ -27,7 +27,7 @@ public partial class UnitFieldControl : Control
 		this.HBF = HBF;
 		if (HFF != null){
 			this.front.UpdateAfterSwap += HFF.UpdateAfterSwap;
-			HFF.UpdateUnitIcon += this.front.update;
+			HFF.UpdateUnitIcon += this.front.Update;
 			HFF.IncreaseCapacity += this.front.UpdateCap;
 			this.front.SellUnit += HFF.SoldUnit;
 
@@ -37,7 +37,7 @@ public partial class UnitFieldControl : Control
 		}
 		if (HBF != null){
 			this.back.UpdateAfterSwap += HBF.UpdateAfterSwap;
-			HBF.UpdateUnitIcon += this.back.update;
+			HBF.UpdateUnitIcon += this.back.Update;
 			HBF.IncreaseCapacity += this.back.UpdateCap;
 			this.back.SellUnit += HBF.SoldUnit;
 

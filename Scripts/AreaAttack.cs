@@ -30,12 +30,12 @@ public partial class AreaAttack : Area2D
 			switch (ownerType){
 				case "Goblin" or "Healer":
 					if (unit is Hero hero){
-						hero.takeDamage(damage);
+						hero.TakeDamage(damage);
 					}
 					break;
 				case "Archer" or "Executioner" or "Knight" or "Solder" or "Chaverly":
 					if (unit is Enemy enemy){
-						enemy.takeDamage(damage);
+						enemy.TakeDamage(damage);
 					}
 					break;
 				default:

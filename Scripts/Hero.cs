@@ -86,7 +86,7 @@ public abstract partial class Hero : Unit
 		healthBar.ChangeValue(health, charge);
 
 		attackTimer.Start();
-		moveHere(locationInrow);
+		MoveHere(locationInrow);
 	}
 
 	public override void Attack()
@@ -137,9 +137,9 @@ public abstract partial class Hero : Unit
 		}
 	}
 
-	public override void die()
+	public override void Die()
 	{
-		base.die();
+		base.Die();
 		if (this == Global.currentlySelectedHero){
 			Global.currentlySelectedHero = null;
 		}
