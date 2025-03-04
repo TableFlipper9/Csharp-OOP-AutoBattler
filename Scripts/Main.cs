@@ -324,7 +324,7 @@ public partial class Main : Node2D
 		else if (oks) guy.MoveToAttack(guy.ClosestEnemy(secondary).GlobalPosition);
 		else{
 			guy.enemy = null;
-			guy.updateInRowLocation(guy.locationInrow);
+			guy.UpdateInRowLocation(guy.locationInrow);
 		}
 	}
 

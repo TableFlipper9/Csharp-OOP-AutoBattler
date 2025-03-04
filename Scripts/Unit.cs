@@ -179,7 +179,7 @@ public abstract partial class Unit : CharacterBody2D
 	}
 
 	public Vector2 locationInrow;
-	public void updateInRowLocation(Vector2 location)
+	public void UpdateInRowLocation(Vector2 location)
 	{
 		if (isDead) return;
 		this.locationInrow = location;

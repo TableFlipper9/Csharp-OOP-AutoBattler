@@ -44,7 +44,7 @@ public partial class HeroUnitField : UnitField
 		{
 			if (this.units[i] != null)
 			{
-				this.units[i].updateInRowLocation(this.locations[units[i].indexInList]);
+				this.units[i].UpdateInRowLocation(this.locations[units[i].indexInList]);
 			}
 		}
 	}
@@ -64,7 +64,7 @@ public partial class HeroUnitField : UnitField
 		units[index] = unit;
 		if (units[index] != null){
 			this.units[index].SetIndex(index);
-			units[index].updateInRowLocation(this.locations[index]);
+			units[index].UpdateInRowLocation(this.locations[index]);
 			units[index].UnitDeath += this.UnitDeath;
 		}
 	}
@@ -93,11 +93,11 @@ public partial class HeroUnitField : UnitField
 
 		if (units[index] != null) {
 			this.units[index].SetIndex(index);
-			this.units[index].updateInRowLocation(locations[index]);
+			this.units[index].UpdateInRowLocation(locations[index]);
 		}
 		if (units[index2] != null) {
 			this.units[index2].SetIndex(index2);
-			this.units[index2].updateInRowLocation(locations[index2]);
+			this.units[index2].UpdateInRowLocation(locations[index2]);
 		}
 	}
 
